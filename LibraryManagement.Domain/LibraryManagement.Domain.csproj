@@ -53,15 +53,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Book.cs" />
     <Compile Include="Interfaces\IBookBL.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="LMBL\BookBL.cs" />
     <Compile Include="LMDAL\BookRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entites\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
