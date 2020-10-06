@@ -1,8 +1,8 @@
-﻿Create procedure AddBooks(
+﻿CREATE procedure AddBooks(
 @Id nvarchar(50),
 @BookName nvarchar(max),
 @AuthorName nvarchar(max),
-@Contact int,
+@Contact bigint,
 @Price money,
 @Copies int,
 @Edition int,
