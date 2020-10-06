@@ -21,5 +21,10 @@ namespace LibraryManagement.Domain.LMBL
         {
             return bookObj.GetAll();
         }
+
+        public List<Book> GetBook(string id)
+        {
+            return bookObj.GetBook(id);
+        }
     }
 }

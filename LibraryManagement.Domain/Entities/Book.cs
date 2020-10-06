@@ -8,7 +8,9 @@ namespace LibraryManagement.Domain.Entities
 {
     public class Book
     {
+
         int  edition, price, copies, contactNo;
+
         string id,name, authorName, publisher, genres;
         DateTime publishedDate;
 
