@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace LibraryManagement.Domain.Interfaces
 {
    public interface IBookRepository
     {
-        IEnumerable<string> Get();
+        List<Book> GetAll();
         
     }
 }

@@ -1,4 +1,5 @@
-﻿using LibraryManagement.Domain.Interfaces;
+﻿using LibraryManagement.Domain.Entities;
+using LibraryManagement.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace LibraryManagement.Web.Controllers
             this.bookBL = bookBL;
         }
         // GET: api/Book
-        public IEnumerable<string> Get()
+        public List<Book> Get()
         {
-            return bookBL.Get();
+            return bookBL.GetAll();
         }
 
         // GET: api/Book/5
