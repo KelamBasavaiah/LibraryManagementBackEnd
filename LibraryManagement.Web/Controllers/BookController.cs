@@ -23,9 +23,9 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // GET: api/Book/5
-        public string Get(int id)
+        public List<Book> Get(string id)
         {
-            return "value";
+            return bookBL.GetBook(id);
         }
 
         // POST: api/Book

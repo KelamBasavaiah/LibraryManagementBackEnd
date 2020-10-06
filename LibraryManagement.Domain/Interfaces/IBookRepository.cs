@@ -10,6 +10,8 @@ namespace LibraryManagement.Domain.Interfaces
    public interface IBookRepository
     {
         List<Book> GetAll();
+
+        List<Book> GetBook(string id);
         
     }
 }

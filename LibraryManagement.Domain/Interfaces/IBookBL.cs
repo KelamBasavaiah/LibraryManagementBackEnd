@@ -10,5 +10,7 @@ namespace LibraryManagement.Domain.Interfaces
     public interface IBookBL
     {
       List<Book> GetAll();
+
+        List<Book> GetBook(string id);
     }
 }
