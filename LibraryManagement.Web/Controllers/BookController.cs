@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryManagement.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,10 +10,15 @@ namespace LibraryManagement.Web.Controllers
 {
     public class BookController : ApiController
     {
+        public IBookBL bookBL;
+        public BookController(IBookBL bookBL)
+        {
+            this.bookBL = bookBL;
+        }
         // GET: api/Book
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return bookBL.Get();
         }
 
         // GET: api/Book/5

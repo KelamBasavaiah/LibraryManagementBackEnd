@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Domain.Interfaces
 {
-    class IBookBL
+    public interface IBookBL
     {
+      IEnumerable<string> Get();
     }
 }

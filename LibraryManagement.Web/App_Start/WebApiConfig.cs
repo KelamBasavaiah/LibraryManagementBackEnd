@@ -1,7 +1,14 @@
-﻿using System;
+﻿using LibraryManagement.Domain;
+using LibraryManagement.Domain.Interfaces;
+using LibraryManagement.Domain.LMBL;
+using LibraryManagement.Domain.LMDAL;
+using LibraryManagement.Web.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Unity;
+using Unity.Lifetime;
 
 namespace LibraryManagement.Web
 {
@@ -19,6 +26,12 @@ namespace LibraryManagement.Web
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var container = new UnityContainer();
+            container.RegisterType<IBookBL, BookBL>();
+            container.RegisterType<IBookRepository, BookRepository>();
+            config.DependencyResolver = new UnityDependencyResolver(container);
+            
         }
     }
 }
