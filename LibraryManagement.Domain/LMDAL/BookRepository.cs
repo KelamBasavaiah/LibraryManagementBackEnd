@@ -37,7 +37,7 @@ namespace LibraryManagement.Domain.LMDAL
             while (drbook.Read())
             {
                 book = new Book();
-                book.Id = Convert.ToInt32(drbook[0].ToString());
+                book.Id = drbook[0].ToString();
                 book.Name = drbook[1].ToString();
                 book.AuthorName = drbook[2].ToString();
                 book.Price = Convert.ToInt32(drbook[3].ToString());

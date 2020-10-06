@@ -8,11 +8,11 @@ namespace LibraryManagement.Domain.Entities
 {
     public class Book
     {
-        int id, edition, price, copies, contactNo;
-        string name, authorName, publisher, genres;
+        int  edition, price, copies, contactNo;
+        string id,name, authorName, publisher, genres;
         DateTime publishedDate;
 
-        public int Id { get => id; set => id = value; }
+        public string Id { get => id; set => id = value; }
         public int Edition { get => edition; set => edition = value; }
         public int Price { get => price; set => price = value; }
         public int Copies { get => copies; set => copies = value; }
