@@ -62,10 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\user1.sql" />
     <Build Include="dbo\Tables\Books.sql" />
     <Build Include="dbo\Stored Procedures\AddBooks.sql" />
     <Build Include="dbo\Stored Procedures\UpdateBook.sql" />
     <Build Include="dbo\Stored Procedures\GetBook.sql" />
     <Build Include="dbo\Stored Procedures\GetAllBooks.sql" />
+
   </ItemGroup>
 </Project>
