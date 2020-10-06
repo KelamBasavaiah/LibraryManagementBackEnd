@@ -1,4 +1,5 @@
-﻿using LibraryManagement.Domain.Interfaces;
+﻿using LibraryManagement.Domain.Entities;
+using LibraryManagement.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +17,9 @@ namespace LibraryManagement.Domain.LMBL
            this.bookObj = bookObj;
         }
 
-        public IEnumerable<string> Get()
+        public List<Book> GetAll()
         {
-            return bookObj.Get();
+            return bookObj.GetAll();
         }
     }
 }
