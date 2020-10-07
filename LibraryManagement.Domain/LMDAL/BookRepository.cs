@@ -80,6 +80,30 @@ namespace LibraryManagement.Domain.LMDAL
             conn.Close();
             return book;
         }
-        
+
+        public bool DeleteBook(string bookId)
+        {
+            bool result;
+            cmdBook = new SqlCommand("deleteBook", conn);
+            cmdBook.Parameters.AddWithValue("@bookId", bookId);
+            SqlParameter parm = new SqlParameter("@return", SqlDbType.Int);
+            parm.Direction = ParameterDirection.ReturnValue;
+            cmdBook.Parameters.Add(parm);
+            cmdBook.CommandType = CommandType.StoredProcedure;
+            OpenConnection();
+            try
+            {
+               var k = cmdBook.ExecuteReader();
+                result = true;
+                int id = Convert.ToInt32(parm.Value);
+            }
+            catch (Exception)
+            {
+                result = false;
+               
+            }
+            conn.Close();
+            return result;
+        }
     }
 }
