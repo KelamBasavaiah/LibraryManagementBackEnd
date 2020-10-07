@@ -1,0 +1,5 @@
+﻿CREATE PROC deleteBook(@bookId NVARCHAR(50))
+AS
+BEGIN
+DELETE FROM Books WHERE Books.Id=@bookId;
+END

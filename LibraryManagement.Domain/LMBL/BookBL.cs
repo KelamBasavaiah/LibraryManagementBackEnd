@@ -17,6 +17,11 @@ namespace LibraryManagement.Domain.LMBL
            this.bookObj = bookObj;
         }
 
+        public bool DeleteBook(string bookId)
+        {
+            return bookObj.DeleteBook(bookId);
+        }
+
         public List<Book> GetAll()
         {
             return bookObj.GetAll();
@@ -25,6 +30,10 @@ namespace LibraryManagement.Domain.LMBL
         public List<Book> GetBook(string id)
         {
             return bookObj.GetBook(id);
+        }
+        public bool AddBook(Book book)
+        {
+            return bookObj.AddBook(book);
         }
     }
 }
