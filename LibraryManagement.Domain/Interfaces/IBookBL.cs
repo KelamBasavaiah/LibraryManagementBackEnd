@@ -9,9 +9,10 @@ namespace LibraryManagement.Domain.Interfaces
 {
     public interface IBookBL
     {
-      List<Book> GetAll();
+        List<Book> GetAll();
 
         List<Book> GetBook(string id);
         bool DeleteBook(string bookId);
+        bool AddBook(Book book);
     }
 }
