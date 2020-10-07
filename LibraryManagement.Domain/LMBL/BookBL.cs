@@ -17,6 +17,11 @@ namespace LibraryManagement.Domain.LMBL
            this.bookObj = bookObj;
         }
 
+        public bool DeleteBook(string bookId)
+        {
+            return bookObj.DeleteBook(bookId);
+        }
+
         public List<Book> GetAll()
         {
             return bookObj.GetAll();

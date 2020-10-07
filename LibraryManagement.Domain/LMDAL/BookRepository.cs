@@ -101,5 +101,27 @@ namespace LibraryManagement.Domain.LMDAL
             return inserted;
         }
 
+
+        public bool DeleteBook(string bookId)
+        {
+            bool result;
+            cmdBook = new SqlCommand("deleteBook", conn);
+            cmdBook.Parameters.AddWithValue("@bookId", bookId);        
+            cmdBook.CommandType = CommandType.StoredProcedure;
+            OpenConnection();
+            try
+            {
+               var k = cmdBook.ExecuteReader();
+                result = true;
+               
+            }
+            catch (Exception)
+            {
+                result = false;
+               
+            }
+            conn.Close();
+            return result;
+        }
     }
 }

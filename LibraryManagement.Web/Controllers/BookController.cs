@@ -49,8 +49,9 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // DELETE: api/Book/5
-        public void Delete(int id)
+        public bool Delete(string id)
         {
+            return bookBL.DeleteBook(id);
         }
     }
 }
