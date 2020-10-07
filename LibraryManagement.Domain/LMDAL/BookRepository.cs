@@ -14,7 +14,7 @@ namespace LibraryManagement.Domain.LMDAL
     public class BookRepository : IBookRepository
     {
         SqlConnection conn;
-        SqlCommand cmdBooks,cmdBook;
+        SqlCommand cmdBooks,cmdBook,cmdAddBooks;
         public BookRepository()
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString);
@@ -80,6 +80,26 @@ namespace LibraryManagement.Domain.LMDAL
             conn.Close();
             return book;
         }
-        
+        public bool AddBook(Book book)
+        {
+            bool inserted = false;
+            cmdAddBooks = new SqlCommand("AddBooks", conn);
+            cmdAddBooks.Parameters.AddWithValue("@Id", book.Id);
+            cmdAddBooks.Parameters.AddWithValue("@BookName", book.Name);
+            cmdAddBooks.Parameters.AddWithValue("@AuthorName", book.AuthorName);
+            cmdAddBooks.Parameters.AddWithValue("@Contact", book.ContactNo);
+            cmdAddBooks.Parameters.AddWithValue("@Price", book.Price);
+            cmdAddBooks.Parameters.AddWithValue("@Copies", book.Copies);
+            cmdAddBooks.Parameters.AddWithValue("@Edition", book.Edition);
+            cmdAddBooks.Parameters.AddWithValue("@PublishedDate", book.PublishedDate);
+            cmdAddBooks.Parameters.AddWithValue("@Publisher", book.Publisher);
+            cmdAddBooks.Parameters.AddWithValue("@Genres", book.Genres);
+            cmdAddBooks.CommandType = CommandType.StoredProcedure;
+            OpenConnection();
+            if (cmdAddBooks.ExecuteNonQuery()> 0)
+                inserted = true;
+            return inserted;
+        }
+
     }
 }

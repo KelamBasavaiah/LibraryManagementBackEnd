@@ -29,8 +29,16 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // POST: api/Book
-        public void Post([FromBody]string value)
+        public bool Post([FromBody]Book book)
         {
+            try
+            {
+                return bookBL.AddBook(book);
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
 
         // PUT: api/Book/5
