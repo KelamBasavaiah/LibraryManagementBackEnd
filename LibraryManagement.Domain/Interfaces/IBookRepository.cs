@@ -11,7 +11,7 @@ namespace LibraryManagement.Domain.Interfaces
     {
         List<Book> GetAll();
 
-        List<Book> GetBook(string id);
+        Book GetBook(string id);
         bool AddBook(Book book);
 
 
