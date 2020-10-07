@@ -53,30 +53,27 @@ namespace LibraryManagement.Domain.LMDAL
             return books;
 
         }
-        public List<Book> GetBook(string id)
+        public Book GetBook(string id)
         {
-            List<Book> book = new List<Book>();
+            Book book = new Book();
             cmdBook = new SqlCommand("GetBook", conn);
             cmdBook.Parameters.AddWithValue("@Id", id);
             cmdBook.CommandType = CommandType.StoredProcedure;
             OpenConnection();
             SqlDataReader sqlData = cmdBook.ExecuteReader();
-            Book Data = null;
             while (sqlData.Read())
             {
-                Data = new Book();
-                Data.Id = sqlData[0].ToString();
-                Data.Name = sqlData[1].ToString();
-                Data.AuthorName = sqlData[2].ToString();
-                Data.Price = Convert.ToInt32(sqlData[3]);
-                Data.ContactNo = Convert.ToInt32(sqlData[4].ToString());
-                Data.Edition = Convert.ToInt32(sqlData[5].ToString());
-                Data.PublishedDate = Convert.ToDateTime(sqlData[6].ToString());
-                Data.Publisher = sqlData[7].ToString();
-                Data.Copies = Convert.ToInt32(sqlData[8].ToString());
-                Data.Genres = sqlData[9].ToString();
-                book.Add(Data);
-            }
+                book.Id = sqlData[0].ToString();
+                book.Name = sqlData[1].ToString();
+                book.AuthorName = sqlData[2].ToString();
+                book.Price = Convert.ToInt32(sqlData[3]);
+                book.ContactNo = Convert.ToInt32(sqlData[4].ToString());
+                book.Edition = Convert.ToInt32(sqlData[5].ToString());
+                book.PublishedDate = Convert.ToDateTime(sqlData[6].ToString());
+                book.Publisher = sqlData[7].ToString();
+                book.Copies = Convert.ToInt32(sqlData[8].ToString());
+                book.Genres = sqlData[9].ToString();
+            } 
             conn.Close();
             return book;
         }

@@ -25,7 +25,7 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // GET: api/Book/5
-        public List<Book> Get(string id)
+        public Book Get(string id)
         {
             return bookBL.GetBook(id);
         }
