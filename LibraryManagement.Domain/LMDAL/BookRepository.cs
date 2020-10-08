@@ -41,7 +41,7 @@ namespace LibraryManagement.Domain.LMDAL
                 book.Name = drbook[1].ToString();
                 book.AuthorName = drbook[2].ToString();
                 book.Price = Convert.ToInt32(drbook[3]);
-                book.ContactNo =Convert.ToInt32(drbook[4].ToString());
+                book.ContactNo =Convert.ToInt64(drbook[4].ToString());
                 book.Edition = Convert.ToInt32(drbook[5].ToString());
                 book.PublishedDate = Convert.ToDateTime(drbook[6].ToString());
                 book.Publisher = drbook[7].ToString();
@@ -67,7 +67,7 @@ namespace LibraryManagement.Domain.LMDAL
                 book.Name = sqlData[1].ToString();
                 book.AuthorName = sqlData[2].ToString();
                 book.Price = Convert.ToInt32(sqlData[3]);
-                book.ContactNo = Convert.ToInt32(sqlData[4].ToString());
+                book.ContactNo = Convert.ToInt64(sqlData[4].ToString());
                 book.Edition = Convert.ToInt32(sqlData[5].ToString());
                 book.PublishedDate = Convert.ToDateTime(sqlData[6].ToString());
                 book.Publisher = sqlData[7].ToString();

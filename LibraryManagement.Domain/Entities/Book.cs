@@ -9,7 +9,7 @@ namespace LibraryManagement.Domain.Entities
     public class Book
     {
 
-        int  edition, price, copies, contactNo;
+        int edition, price, copies;long contactNo;
 
         string id,name, authorName, publisher, genres;
         DateTime publishedDate;
@@ -18,7 +18,7 @@ namespace LibraryManagement.Domain.Entities
         public int Edition { get => edition; set => edition = value; }
         public int Price { get => price; set => price = value; }
         public int Copies { get => copies; set => copies = value; }
-        public int ContactNo { get => contactNo; set => contactNo = value; }
+        public long ContactNo { get => contactNo; set => contactNo = value; }
         public string Name { get => name; set => name = value; }
         public string AuthorName { get => authorName; set => authorName = value; }
         public string Publisher { get => publisher; set => publisher = value; }
