@@ -44,8 +44,9 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // PUT: api/Book/5
-        public void Put(int id, [FromBody]string value)
+        public bool Put(string id, [FromBody]Book book)
         {
+            return bookBL.UpdateBook(id, book);
         }
 
         // DELETE: api/Book/5

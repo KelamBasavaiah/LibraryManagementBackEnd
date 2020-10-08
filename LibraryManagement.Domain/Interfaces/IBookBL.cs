@@ -14,5 +14,6 @@ namespace LibraryManagement.Domain.Interfaces
         Book GetBook(string id);
         bool DeleteBook(string bookId);
         bool AddBook(Book book);
+        bool UpdateBook(string id, Book book);
     }
 }
