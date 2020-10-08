@@ -14,7 +14,7 @@ namespace LibraryManagement.Domain.LMDAL
     public class BookRepository : IBookRepository
     {
         SqlConnection conn;
-        SqlCommand cmdBooks,cmdBook,cmdAddBooks;
+        SqlCommand cmdBooks,cmdBook,cmdAddBooks,cmdUpdateBook;
         public BookRepository()
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString);
@@ -96,6 +96,29 @@ namespace LibraryManagement.Domain.LMDAL
             if (cmdAddBooks.ExecuteNonQuery()> 0)
                 inserted = true;
             return inserted;
+        }
+
+        public bool UpdateBook(string id, Book book)
+        {
+            bool updated = false;
+            cmdUpdateBook = new SqlCommand("UpdateBook", conn);
+            cmdUpdateBook.Parameters.AddWithValue("@Id", id);
+            cmdUpdateBook.Parameters.AddWithValue("@BookName", book.Name);
+            cmdUpdateBook.Parameters.AddWithValue("@AuthorName", book.AuthorName);
+            cmdUpdateBook.Parameters.AddWithValue("@Contact", book.ContactNo);
+            cmdUpdateBook.Parameters.AddWithValue("@Price", book.Price);
+            cmdUpdateBook.Parameters.AddWithValue("@Copies", book.Copies);
+            cmdUpdateBook.Parameters.AddWithValue("@Edition", book.Edition);
+            cmdUpdateBook.Parameters.AddWithValue("@PublishedDate", book.PublishedDate);
+            cmdUpdateBook.Parameters.AddWithValue("@Publisher", book.Publisher);
+            cmdUpdateBook.Parameters.AddWithValue("@Genres", book.Genres);
+            cmdUpdateBook.CommandType = CommandType.StoredProcedure;
+            OpenConnection();
+            if(cmdUpdateBook.ExecuteNonQuery() > 0)
+            {
+                updated = true;
+            }
+            return updated;
         }
 
 
