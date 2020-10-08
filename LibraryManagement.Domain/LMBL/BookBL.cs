@@ -35,5 +35,9 @@ namespace LibraryManagement.Domain.LMBL
         {
             return bookObj.AddBook(book);
         }
+        public bool UpdateBook(string id,Book book)
+        {
+            return bookObj.UpdateBook(id, book);
+        }
     }
 }
