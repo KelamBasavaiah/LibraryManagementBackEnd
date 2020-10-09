@@ -37,16 +37,16 @@ namespace LibraryManagement.Domain.LMDAL
             while (drbook.Read())
             {
                 book = new Book();
-                book.Id = drbook[0].ToString();
-                book.Name = drbook[1].ToString();
-                book.AuthorName = drbook[2].ToString();
-                book.Price = Convert.ToInt32(drbook[3]);
-                book.ContactNo =Convert.ToInt64(drbook[4].ToString());
-                book.Edition = Convert.ToInt32(drbook[5].ToString());
-                book.PublishedDate = Convert.ToDateTime(drbook[6].ToString());
-                book.Publisher = drbook[7].ToString();
-                book.Copies = Convert.ToInt32(drbook[8].ToString());
-                book.Genres = drbook[9].ToString();
+                book.id = drbook[0].ToString();
+                book.name = drbook[1].ToString();
+                book.author_name = drbook[2].ToString();
+                book.price = Convert.ToInt32(drbook[3]);
+                book.contact =Convert.ToInt64(drbook[4].ToString());
+                book.edition = Convert.ToInt32(drbook[5].ToString());
+                book.publishedDate = Convert.ToDateTime(drbook[6].ToString());
+                book.publisher = drbook[7].ToString();
+                book.copies = Convert.ToInt32(drbook[8].ToString());
+                book.genres = drbook[9].ToString();
                 books.Add(book);
             }
             conn.Close();
@@ -63,16 +63,16 @@ namespace LibraryManagement.Domain.LMDAL
             SqlDataReader sqlData = cmdBook.ExecuteReader();
             while (sqlData.Read())
             {
-                book.Id = sqlData[0].ToString();
-                book.Name = sqlData[1].ToString();
-                book.AuthorName = sqlData[2].ToString();
-                book.Price = Convert.ToInt32(sqlData[3]);
-                book.ContactNo = Convert.ToInt64(sqlData[4].ToString());
-                book.Edition = Convert.ToInt32(sqlData[5].ToString());
-                book.PublishedDate = Convert.ToDateTime(sqlData[6].ToString());
-                book.Publisher = sqlData[7].ToString();
-                book.Copies = Convert.ToInt32(sqlData[8].ToString());
-                book.Genres = sqlData[9].ToString();
+                book.id = sqlData[0].ToString();
+                book.name = sqlData[1].ToString();
+                book.author_name = sqlData[2].ToString();
+                book.price = Convert.ToInt32(sqlData[3]);
+                book.contact = Convert.ToInt64(sqlData[4].ToString());
+                book.edition = Convert.ToInt32(sqlData[5].ToString());
+                book.publishedDate = Convert.ToDateTime(sqlData[6].ToString());
+                book.publisher = sqlData[7].ToString();
+                book.copies = Convert.ToInt32(sqlData[8].ToString());
+                book.genres = sqlData[9].ToString();
             } 
             conn.Close();
             return book;
@@ -81,16 +81,16 @@ namespace LibraryManagement.Domain.LMDAL
         {
             bool inserted = false;
             cmdAddBooks = new SqlCommand("AddBooks", conn);
-            cmdAddBooks.Parameters.AddWithValue("@Id", book.Id);
-            cmdAddBooks.Parameters.AddWithValue("@BookName", book.Name);
-            cmdAddBooks.Parameters.AddWithValue("@AuthorName", book.AuthorName);
-            cmdAddBooks.Parameters.AddWithValue("@Contact", book.ContactNo);
-            cmdAddBooks.Parameters.AddWithValue("@Price", book.Price);
-            cmdAddBooks.Parameters.AddWithValue("@Copies", book.Copies);
-            cmdAddBooks.Parameters.AddWithValue("@Edition", book.Edition);
-            cmdAddBooks.Parameters.AddWithValue("@PublishedDate", book.PublishedDate);
-            cmdAddBooks.Parameters.AddWithValue("@Publisher", book.Publisher);
-            cmdAddBooks.Parameters.AddWithValue("@Genres", book.Genres);
+            cmdAddBooks.Parameters.AddWithValue("@Id", book.id);
+            cmdAddBooks.Parameters.AddWithValue("@BookName", book.name);
+            cmdAddBooks.Parameters.AddWithValue("@AuthorName", book.author_name);
+            cmdAddBooks.Parameters.AddWithValue("@Contact", book.contact);
+            cmdAddBooks.Parameters.AddWithValue("@Price", book.price);
+            cmdAddBooks.Parameters.AddWithValue("@Copies", book.copies);
+            cmdAddBooks.Parameters.AddWithValue("@Edition", book.edition);
+            cmdAddBooks.Parameters.AddWithValue("@PublishedDate", book.publishedDate);
+            cmdAddBooks.Parameters.AddWithValue("@Publisher", book.publisher);
+            cmdAddBooks.Parameters.AddWithValue("@Genres", book.genres);
             cmdAddBooks.CommandType = CommandType.StoredProcedure;
             OpenConnection();
             if (cmdAddBooks.ExecuteNonQuery()> 0)
@@ -103,15 +103,15 @@ namespace LibraryManagement.Domain.LMDAL
             bool updated = false;
             cmdUpdateBook = new SqlCommand("UpdateBook", conn);
             cmdUpdateBook.Parameters.AddWithValue("@Id", id);
-            cmdUpdateBook.Parameters.AddWithValue("@BookName", book.Name);
-            cmdUpdateBook.Parameters.AddWithValue("@AuthorName", book.AuthorName);
-            cmdUpdateBook.Parameters.AddWithValue("@Contact", book.ContactNo);
-            cmdUpdateBook.Parameters.AddWithValue("@Price", book.Price);
-            cmdUpdateBook.Parameters.AddWithValue("@Copies", book.Copies);
-            cmdUpdateBook.Parameters.AddWithValue("@Edition", book.Edition);
-            cmdUpdateBook.Parameters.AddWithValue("@PublishedDate", book.PublishedDate);
-            cmdUpdateBook.Parameters.AddWithValue("@Publisher", book.Publisher);
-            cmdUpdateBook.Parameters.AddWithValue("@Genres", book.Genres);
+            cmdUpdateBook.Parameters.AddWithValue("@BookName", book.name);
+            cmdUpdateBook.Parameters.AddWithValue("@AuthorName", book.author_name);
+            cmdUpdateBook.Parameters.AddWithValue("@Contact", book.contact);
+            cmdUpdateBook.Parameters.AddWithValue("@Price", book.price);
+            cmdUpdateBook.Parameters.AddWithValue("@Copies", book.copies);
+            cmdUpdateBook.Parameters.AddWithValue("@Edition", book.edition);
+            cmdUpdateBook.Parameters.AddWithValue("@PublishedDate", book.publishedDate);
+            cmdUpdateBook.Parameters.AddWithValue("@Publisher", book.publisher);
+            cmdUpdateBook.Parameters.AddWithValue("@Genres", book.genres);
             cmdUpdateBook.CommandType = CommandType.StoredProcedure;
             OpenConnection();
             if(cmdUpdateBook.ExecuteNonQuery() > 0)
