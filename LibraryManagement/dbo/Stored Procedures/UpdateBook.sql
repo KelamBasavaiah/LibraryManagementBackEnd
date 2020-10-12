@@ -11,7 +11,7 @@
 @Genres nvarchar(50))
 as 
 begin
-	Update Books set Id = @Id,BookName = @BookName,
+	Update Books set BookName = @BookName,
 	AuthorName = @AuthorName,
 	Contact = @Contact,
 	Price = @Price,
