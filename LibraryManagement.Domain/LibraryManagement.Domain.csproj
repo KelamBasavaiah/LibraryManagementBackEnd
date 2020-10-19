@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Interfaces\IBookBL.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Interfaces\IUserBl.cs" />
