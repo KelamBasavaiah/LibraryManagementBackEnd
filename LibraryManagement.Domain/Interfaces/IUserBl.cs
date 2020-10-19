@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Domain.Interfaces
 {
-   public interface IUserRepository
+   public interface IUserBl
     {
-        string getUser(string username);
+        bool getUser(string username,string password);
     }
 }

@@ -1,24 +1,32 @@
-﻿using System;
+﻿using LibraryManagement.Domain.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace LibraryManagement.Web.Controllers
 {
+    [EnableCors("http://localhost:4200", "*", "GET,POST,PUT,DELETE")]
     public class UserController : ApiController
     {
-        // GET: api/User
-        public IEnumerable<string> Get()
+        IUserBl userObj;
+        public UserController(IUserBl userObj)
         {
-            return new string[] { "value1", "value2" };
+            this.userObj=userObj;
+        }
+        // GET: api/User
+        public void Get()
+        {
         }
 
         // GET: api/User/5
-        public string Get(int id)
+        [Route("api/User/{username}/{password}")]
+        public bool Get(string username,string password)
         {
-            return "value";
+            return userObj.getUser(username, password);
         }
 
         // POST: api/User
@@ -27,8 +35,11 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // PUT: api/User/5
-        public void Put(int id, [FromBody]string value)
+       
+        public bool Put(string username,[FromBody]string password)
         {
+
+            return userObj.getUser(username, password);
         }
 
         // DELETE: api/User/5
