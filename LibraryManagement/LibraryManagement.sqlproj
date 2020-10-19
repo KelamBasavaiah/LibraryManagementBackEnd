@@ -74,5 +74,6 @@
     <Build Include="dbo\Stored Procedures\ProcGetBookRecords.sql" />
     <Build Include="dbo\Stored Procedures\ProcDeleteBookRecords.sql" />
     <Build Include="dbo\Stored Procedures\ProcAddBookRecords.sql" />
+    <Build Include="dbo\Stored Procedures\getUser.sql" />
   </ItemGroup>
 </Project>
