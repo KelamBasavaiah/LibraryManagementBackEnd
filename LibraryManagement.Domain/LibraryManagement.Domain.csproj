@@ -55,10 +55,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Interfaces\IBookBL.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="LMBL\BookBL.cs" />
+    <Compile Include="LMBL\UserBL.cs" />
     <Compile Include="LMDAL\BookRepository.cs" />
+    <Compile Include="LMDAL\UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
