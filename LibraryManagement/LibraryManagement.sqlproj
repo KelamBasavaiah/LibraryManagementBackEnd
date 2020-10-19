@@ -69,5 +69,6 @@
     <Build Include="dbo\Stored Procedures\GetBook.sql" />
     <Build Include="dbo\Stored Procedures\GetAllBooks.sql" />
     <Build Include="dbo\Stored Procedures\deleteBook.sql" />
+    <Build Include="dbo\Tables\user.sql" />
   </ItemGroup>
 </Project>
