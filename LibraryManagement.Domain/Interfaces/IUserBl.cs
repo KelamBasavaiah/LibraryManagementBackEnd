@@ -12,6 +12,7 @@ namespace LibraryManagement.Domain.Interfaces
     {
         bool getUser(string username,string password);
         List<User> getAllbooksforUser(string userName);
+        bool returnBook(User book);
         bool lendingBooks(string bookid, string username);
     }
 }

@@ -52,8 +52,9 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // DELETE: api/User/5
-        public void Delete(int id)
+        public bool Delete(User book)
         {
+            return userObj.returnBook(book);
         }
     }
 }
