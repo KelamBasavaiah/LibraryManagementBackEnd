@@ -12,5 +12,6 @@ namespace LibraryManagement.Domain.Interfaces
     {
         string getUser(string username);
         List<User> getAllbooksforUser(string userName);
+        bool returnBook(User book);
     }
 }

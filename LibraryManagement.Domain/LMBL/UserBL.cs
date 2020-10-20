@@ -26,5 +26,9 @@ namespace LibraryManagement.Domain.LMBL
         {
             return userObj.getAllbooksforUser(userName);
         }
+        public bool returnBook(User book)
+        {
+            return userObj.returnBook(book);
+        }
     }
 }
