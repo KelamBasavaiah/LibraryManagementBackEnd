@@ -11,7 +11,7 @@ namespace LibraryManagement.Domain.LMDAL
     public class userRepository : IUserRepository
     {
         SqlConnection conn;
-        SqlCommand cmduser,cmdBooks, cmdlendBooks;
+        SqlCommand cmduser,cmdBooks,cmdlendBooks,cmdBook;
         public userRepository()
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString);
@@ -66,6 +66,31 @@ namespace LibraryManagement.Domain.LMDAL
             }
             conn.Close();
             return books;
+        }
+        public bool returnBook(User book)
+        {
+            bool result = false;
+            cmdBook = new SqlCommand("ProcDeleteBookRecords", conn);
+            cmdBook.Parameters.AddWithValue("@bookId", book.userName);
+            cmdBook.Parameters.AddWithValue("@bookId", book.bookId);
+            cmdBook.Parameters.AddWithValue("@bookId", book.dueDate);
+            cmdBook.CommandType = CommandType.StoredProcedure;
+            OpenConnection();
+            try
+            {
+                if (cmdBook.ExecuteNonQuery() > 0)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
+
+            }
+            conn.Close();
+            return result;
+
         }
         public bool lendingBooks(string bookid, string username)
         {
