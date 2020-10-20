@@ -10,5 +10,9 @@ namespace LibraryManagement.Domain.Entities
     {
         string UserName,BookId;
         DateTime DueDate;
+
+        public string userName { get => UserName; set => UserName = value; }
+        public string bookId { get => BookId; set => BookId = value; }
+        public DateTime dueDate { get => DueDate; set => DueDate = value; }
     }
 }

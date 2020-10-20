@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Domain.Interfaces;
+using LibraryManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,9 @@ namespace LibraryManagement.Web.Controllers
             this.userObj=userObj;
         }
         // GET: api/User
-        public void Get()
+        public List<User> Get(string userName)
         {
+            return userObj.getAllbooksforUser(userName);
         }
 
         // GET: api/User/5
