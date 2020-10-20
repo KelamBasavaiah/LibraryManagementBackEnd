@@ -32,15 +32,22 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // POST: api/User
-        public void Post([FromBody]string value)
+        public bool Post(string bookid,[FromBody]User user)
         {
+            try
+            {
+                return userObj.lendingBooks(bookid, user.userName);
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
 
         // PUT: api/User/5
        
         public bool Put(string username,[FromBody]string password)
         {
-
             return userObj.getUser(username, password);
         }
 
