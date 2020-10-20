@@ -26,5 +26,9 @@ namespace LibraryManagement.Domain.LMBL
         {
             return userObj.getAllbooksforUser(userName);
         }
+        public bool lendingBooks(string bookid, string username)
+        {
+            return userObj.lendingBooks(bookid, username);
+        }
     }
 }
