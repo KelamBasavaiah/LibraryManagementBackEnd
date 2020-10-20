@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Domain.Interfaces;
+using LibraryManagement.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,10 @@ namespace LibraryManagement.Domain.LMBL
             string dbPasssword = userObj.getUser(username);
             if(dbPasssword== password) { result = true; }
             return result;           
+        }
+        public List<User> getAllbooksforUser(string userName)
+        {
+            return userObj.getAllbooksforUser(userName);
         }
     }
 }
