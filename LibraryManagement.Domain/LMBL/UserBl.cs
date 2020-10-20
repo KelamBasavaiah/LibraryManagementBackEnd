@@ -30,5 +30,9 @@ namespace LibraryManagement.Domain.LMBL
         {
             return userObj.lendingBooks(bookid, username);
         }
+        public bool returnBook(User book)
+        {
+            return userObj.returnBook(book);
+        }
     }
 }
