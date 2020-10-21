@@ -26,7 +26,7 @@ namespace LibraryManagement.Web.Controllers
 
         // GET: api/User/5
         [Route("api/User/{username}/{password}")]
-        public bool Get(string username,string password)
+        public login Get(string username,string password)
         {
             return userObj.getUser(username, password);
         }
@@ -46,7 +46,7 @@ namespace LibraryManagement.Web.Controllers
 
         // PUT: api/User/5
        
-        public bool Put(string username,[FromBody]string password)
+        public login Put(string username,[FromBody]string password)
         {
             return userObj.getUser(username, password);
         }

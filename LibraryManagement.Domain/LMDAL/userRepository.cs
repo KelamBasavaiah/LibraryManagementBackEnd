@@ -23,9 +23,9 @@ namespace LibraryManagement.Domain.LMDAL
                 conn.Close();
             conn.Open();
         }
-        public string getUser(string username)
+        public login getUser(string username)
         {
-            string passowrd = "";
+            login login = new login();
             cmduser = new SqlCommand("getUser", conn);
             cmduser.Parameters.AddWithValue("@username", username);
             cmduser.CommandType = CommandType.StoredProcedure;
@@ -35,17 +35,20 @@ namespace LibraryManagement.Domain.LMDAL
                 SqlDataReader dr = cmduser.ExecuteReader();
                 while (dr.Read())
                 {
-                    passowrd = Convert.ToString(dr[1]);
+                    login.userId = Convert.ToInt32(dr[0]);
+                    login.password = Convert.ToString(dr[1]);
+                    login.role= Convert.ToInt32(dr[2]);
+                    login.username = username;
                 }
 
             }
             catch (Exception)
             {
 
-                passowrd = "";
+               
             }
             conn.Close();
-            return passowrd;
+            return login;
         }
         public List<User> getAllbooksforUser(string userName)
         {

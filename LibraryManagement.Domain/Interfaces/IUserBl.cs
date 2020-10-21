@@ -10,7 +10,7 @@ namespace LibraryManagement.Domain.Interfaces
 {
    public interface IUserBl
     {
-        bool getUser(string username,string password);
+        login getUser(string username,string password);
         List<User> getAllbooksforUser(string userName);
         bool returnBook(User book);
         bool lendingBooks(string bookid, string username);
