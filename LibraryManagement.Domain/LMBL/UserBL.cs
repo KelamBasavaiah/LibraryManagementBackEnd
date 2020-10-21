@@ -15,12 +15,12 @@ namespace LibraryManagement.Domain.LMBL
         {
             this.userObj = userObj;
         }
-        public bool getUser(string username, string password)
+        public login getUser(string username, string password)
         {
-            bool result = false;
-            string dbPasssword = userObj.getUser(username);
-            if(dbPasssword== password) { result = true; }
-            return result;           
+            login login = new login();
+            login = userObj.getUser(username);
+            if(login.password== password) { login.aurthorize = true; }
+            return login;           
         }
         public List<User> getAllbooksforUser(int userId)
         {

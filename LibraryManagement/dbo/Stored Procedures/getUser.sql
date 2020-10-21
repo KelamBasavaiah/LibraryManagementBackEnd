@@ -1,3 +1,3 @@
 ﻿CREATE PROC getUser(@username nvarchar(50))
-as 
-select userName,password from [dbo].[user] u where u.userName=@username
+AS
+SELECT userId,password,role FROM [dbo].libraryusers u WHERE u.userName=@username
