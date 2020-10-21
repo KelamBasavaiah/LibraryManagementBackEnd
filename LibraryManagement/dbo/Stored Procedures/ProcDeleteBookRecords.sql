@@ -1,9 +1,11 @@
-﻿CREATE PROCEDURE ProcDeleteBookRecords(@UserId int,@BookId nvarchar(50),@DueDate datetime)
+﻿CREATE PROCEDURE ProcDeleteBookRecords(@Id int)
 as 
-Declare @Copies int 
-		SET @Copies = (select Copies from Books where Id = @BookId)
+Declare @BookId nvarchar(50),
+		@Copies int
+		SET @BookId = (select BookId from userBooks where Id = @Id)
 begin
-	Delete from userBooks where userId = @UserId and BookId = @BookId and DueDate = @DueDate
+	Delete from userBooks where Id = @Id
+	SET @Copies = (select Copies from Books where Id = @BookId)
 
 	Update Books set Copies = @Copies + 1 where Id = @BookId
 end
