@@ -97,7 +97,7 @@ namespace LibraryManagement.Domain.LMDAL
         {
             bool lendBook = false;
             cmdlendBooks = new SqlCommand("ProcAddBookRecords", conn);
-            cmdlendBooks.Parameters.AddWithValue("@username", userID);
+            cmdlendBooks.Parameters.AddWithValue("@UserId", userID);
             cmdlendBooks.Parameters.AddWithValue("@bookId", bookid);
             cmdlendBooks.CommandType = CommandType.StoredProcedure;
             OpenConnection();
