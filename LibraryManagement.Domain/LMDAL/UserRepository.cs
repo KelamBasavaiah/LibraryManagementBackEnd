@@ -92,7 +92,6 @@ namespace LibraryManagement.Domain.LMDAL
             }
             conn.Close();
             return result;
-
         }
         public bool lendingBooks(string bookid, int userID)
         {
