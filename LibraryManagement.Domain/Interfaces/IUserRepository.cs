@@ -11,8 +11,8 @@ namespace LibraryManagement.Domain.Interfaces
    public interface IUserRepository
     {
         string getUser(string username);
-        List<User> getAllbooksforUser(string userName);
-        bool returnBook(User book);
+        List<User> getAllbooksforUser(int userId);
+        bool returnBook(int id);
         bool lendingBooks(string bookid, string username);
     }
 }

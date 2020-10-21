@@ -47,11 +47,11 @@ namespace LibraryManagement.Domain.LMDAL
             conn.Close();
             return passowrd;
         }
-        public List<User> getAllbooksforUser(string userName)
+        public List<User> getAllbooksforUser(int userId)
         {
             List<User> books = new List<User>();
             cmdBooks = new SqlCommand("ProcGetBookRecords", conn);
-            cmdBooks.Parameters.AddWithValue("@UserName", userName);
+            cmdBooks.Parameters.AddWithValue("@UserId", userId);
             cmdBooks.CommandType = CommandType.StoredProcedure;
             OpenConnection();
             SqlDataReader drbook = cmdBooks.ExecuteReader();
@@ -59,21 +59,20 @@ namespace LibraryManagement.Domain.LMDAL
             while (drbook.Read())
             {
                 book = new User();
-                book.userName = drbook[0].ToString();
-                book.bookId = drbook[1].ToString();
-                book.dueDate = Convert.ToDateTime(drbook[2].ToString());
+                book.id = Convert.ToInt32(drbook[0].ToString());
+                book.userId = Convert.ToInt32(drbook[1].ToString());
+                book.bookId = drbook[2].ToString();
+                book.dueDate = Convert.ToDateTime(drbook[3].ToString());
                 books.Add(book);
             }
             conn.Close();
             return books;
         }
-        public bool returnBook(User book)
+        public bool returnBook(int id)
         {
             bool result = false;
             cmdBook = new SqlCommand("ProcDeleteBookRecords", conn);
-            cmdBook.Parameters.AddWithValue("@bookId", book.userName);
-            cmdBook.Parameters.AddWithValue("@bookId", book.bookId);
-            cmdBook.Parameters.AddWithValue("@bookId", book.dueDate);
+            cmdBook.Parameters.AddWithValue("@Id", id);
             cmdBook.CommandType = CommandType.StoredProcedure;
             OpenConnection();
             try
