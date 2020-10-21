@@ -36,7 +36,7 @@ namespace LibraryManagement.Web.Controllers
         {
             try
             {
-                return userObj.lendingBooks(bookid, user.UserName);
+                return userObj.lendingBooks(bookid, user.userId);
             }
             catch(Exception e)
             {
