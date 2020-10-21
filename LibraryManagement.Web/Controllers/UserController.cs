@@ -19,9 +19,9 @@ namespace LibraryManagement.Web.Controllers
             this.userObj=userObj;
         }
         // GET: api/User
-        public List<User> Get(string userName)
+        public List<User> Get(int userId)
         {
-            return userObj.getAllbooksforUser(userName);
+            return userObj.getAllbooksforUser(userId);
         }
 
         // GET: api/User/5
@@ -36,7 +36,7 @@ namespace LibraryManagement.Web.Controllers
         {
             try
             {
-                return userObj.lendingBooks(bookid, user.userName);
+                return userObj.lendingBooks(bookid, user.UserName);
             }
             catch(Exception e)
             {
@@ -52,9 +52,9 @@ namespace LibraryManagement.Web.Controllers
         }
 
         // DELETE: api/User/5
-        public bool Delete(User book)
+        public bool Delete(int id)
         {
-            return userObj.returnBook(book);
+            return userObj.returnBook(id);
         }
     }
 }

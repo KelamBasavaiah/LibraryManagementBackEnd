@@ -9,10 +9,10 @@ using LibraryManagement.Domain.Entities;
 namespace LibraryManagement.Domain.Interfaces
 {
    public interface IUserBl
-    {
-        login getUser(string username,string password);
-        List<User> getAllbooksforUser(string userName);
-        bool returnBook(User book);
+    {        
+        List<User> getAllbooksforUser(int userId);
+        bool returnBook(int id);
+        login getUser(string username,string password);     
         bool lendingBooks(string bookid, string username);
     }
 }

@@ -22,17 +22,17 @@ namespace LibraryManagement.Domain.LMBL
             if(login.password== password) { login.aurthorize = true; }
             return login;           
         }
-        public List<User> getAllbooksforUser(string userName)
+        public List<User> getAllbooksforUser(int userId)
         {
-            return userObj.getAllbooksforUser(userName);
+            return userObj.getAllbooksforUser(userId);
         }
         public bool lendingBooks(string bookid, string username)
         {
             return userObj.lendingBooks(bookid, username);
         }
-        public bool returnBook(User book)
+        public bool returnBook(int id)
         {
-            return userObj.returnBook(book);
+            return userObj.returnBook(id);
         }
     }
 }
