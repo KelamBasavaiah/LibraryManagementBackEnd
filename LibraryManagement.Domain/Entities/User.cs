@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Domain.Entities
 {
-    public class User
+    public class User:login
     {
         string BookId;
         DateTime DueDate;
-        int Id, UserId;
-
-        public int userId { get => UserId; set => UserId = value; }
+        int Id;
+        
         public string bookId { get => BookId; set => BookId = value; }
         public DateTime dueDate { get => DueDate; set => DueDate = value; }
         public int id { get => Id; set => Id = value; }
+        public string mailId { get; set; }
+        public long phoneNo { get; set; }
+        public int isActive { get; set; }
 
     }
 }

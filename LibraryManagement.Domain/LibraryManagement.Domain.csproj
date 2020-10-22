@@ -60,10 +60,14 @@
     <Compile Include="Interfaces\IBookBL.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Interfaces\IUserBl.cs" />
+    <Compile Include="Interfaces\IUserMgmtBL.cs" />
+    <Compile Include="Interfaces\IUserMgmtRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="LMBL\BookBL.cs" />
+    <Compile Include="LMBL\UserMgmtBL.cs" />
     <Compile Include="LMBL\UserBl.cs" />
     <Compile Include="LMDAL\BookRepository.cs" />
+    <Compile Include="LMDAL\UserMgmtRepository.cs" />
     <Compile Include="LMDAL\userRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
