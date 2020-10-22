@@ -66,6 +66,7 @@ namespace LibraryManagement.Domain.LMDAL
                 book.userId = Convert.ToInt32(drbook[1].ToString());
                 book.bookId = drbook[2].ToString();
                 book.dueDate = Convert.ToDateTime(drbook[3].ToString());
+                book.bookName = drbook[4].ToString();
                 books.Add(book);
             }
             conn.Close();

@@ -8,7 +8,7 @@ namespace LibraryManagement.Domain.Entities
 {
     public class User
     {
-        string BookId;
+        string BookId,BookName;
         DateTime DueDate;
         int Id, UserId;
 
@@ -16,6 +16,6 @@ namespace LibraryManagement.Domain.Entities
         public string bookId { get => BookId; set => BookId = value; }
         public DateTime dueDate { get => DueDate; set => DueDate = value; }
         public int id { get => Id; set => Id = value; }
-
+        public string bookName { get => BookName; set => BookName = value; }
     }
 }
