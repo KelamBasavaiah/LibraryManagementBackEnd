@@ -75,5 +75,7 @@
     <Build Include="dbo\Stored Procedures\getUser.sql" />
     <Build Include="dbo\Tables\userBooks.sql" />
     <Build Include="dbo\Tables\libraryusers.sql" />
+    <Build Include="dbo\Tables\UserDetails.sql" />
+    <Build Include="dbo\Tables\Libraryroles.sql" />
   </ItemGroup>
 </Project>
