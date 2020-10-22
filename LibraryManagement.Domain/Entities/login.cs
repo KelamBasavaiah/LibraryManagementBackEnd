@@ -8,7 +8,7 @@ namespace LibraryManagement.Domain.Entities
 {
     public class login
     {
-        public int? userId { get; set; }
+        public int userId { get; set; }
         public string username { get; set; }
 
         public string password { get; set; }
