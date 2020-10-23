@@ -23,6 +23,14 @@ namespace LibraryManagement.Domain.LMBL
         {
             return userObj.GetUserDetails(id);
         }
+        public List<User> getAllUserMgmtDetails()
+        {
+            return userObj.getAllUserMgmtDetails();
+        }
+        public bool deleteUser(int userId)
+        {
+            return userObj.deleteUser(userId);
+        }
 
     }
 }

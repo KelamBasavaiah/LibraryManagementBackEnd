@@ -76,5 +76,7 @@
     <Build Include="dbo\Tables\Libraryroles.sql" />
     <Build Include="dbo\Stored Procedures\ProcInsertUserDetails.sql" />
     <Build Include="dbo\Stored Procedures\ProcGetUserDetails.sql" />
+    <Build Include="dbo\Stored Procedures\procGetAllUserDetails.sql" />
+    <Build Include="dbo\Stored Procedures\procDeleteUser.sql" />
   </ItemGroup>
 </Project>

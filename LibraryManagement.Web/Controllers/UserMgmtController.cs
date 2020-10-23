@@ -22,11 +22,33 @@ namespace LibraryManagement.Web.Controllers
         {
             return userObj.GetUserDetails(id);
         }
+        public List<User> Get()
+        {
+            try
+            {
+                return userObj.getAllUserMgmtDetails();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
         public bool Post([FromBody]User user)
         {
             try
             {
                 return userObj.addUserDetails(user);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+        public bool Delete(int userId)
+        {
+            try
+            {
+                return userObj.deleteUser(userId);
             }
             catch (Exception e)
             {
