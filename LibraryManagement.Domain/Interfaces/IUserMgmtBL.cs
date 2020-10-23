@@ -11,5 +11,7 @@ namespace LibraryManagement.Domain.Interfaces
     {
         bool addUserDetails(User user);
         User GetUserDetails(int id);
+        List<User> getAllUserMgmtDetails();
+        bool deleteUser(int userId);
     }
 }

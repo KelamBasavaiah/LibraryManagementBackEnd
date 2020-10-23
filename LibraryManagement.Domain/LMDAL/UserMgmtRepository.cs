@@ -14,7 +14,7 @@ namespace LibraryManagement.Domain.LMDAL
     public class UserMgmtRepository : IUserMgmtRepository
     {
         SqlConnection conn;
-        SqlCommand cmdAddUserDetails,cmdGetUserDetails;
+        SqlCommand cmdAddUserDetails,cmdGetUserDetails,cmdGetAllUsers,cmdDelUsr;
         public UserMgmtRepository()
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString);
@@ -67,6 +67,43 @@ namespace LibraryManagement.Domain.LMDAL
             conn.Close();
             return userdetails;
         }
+        public List<User> getAllUserMgmtDetails()
+        {
+            List<User> users = new List<User>();
+            cmdGetAllUsers = new SqlCommand("procGetAllUserDetails", conn);
+            cmdGetAllUsers.CommandType = CommandType.StoredProcedure;
+            OpenConnection();
+            SqlDataReader drUsers = cmdGetAllUsers.ExecuteReader();
+            User user = null;
 
+            while (drUsers.Read())
+            {
+                user = new User();
+                user.userId = Convert.ToInt32(drUsers[0].ToString());
+                user.username = drUsers[1].ToString();
+                user.password = drUsers[2].ToString();
+                user.role = Convert.ToInt32(drUsers[3].ToString());
+                user.isActive = Convert.ToInt32(drUsers[4]);
+                user.phoneNo = Convert.ToInt64(drUsers[5].ToString());
+                user.mailId = drUsers[6].ToString();
+                users.Add(user);
+            }
+            conn.Close();
+            return users;
+        }
+        public bool deleteUser(int userId)
+        {
+            bool deleted = false;
+            cmdDelUsr = new SqlCommand("procDeleteUser",conn);
+            cmdDelUsr.Parameters.AddWithValue("@userId", userId);
+            cmdDelUsr.CommandType = CommandType.StoredProcedure;
+            OpenConnection();
+            if(cmdDelUsr.ExecuteNonQuery()>0)
+            {
+                deleted=true;
+            }
+            conn.Close();
+            return deleted;
+        }
     }
 }
