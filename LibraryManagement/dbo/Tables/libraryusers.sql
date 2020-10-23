@@ -4,9 +4,13 @@
     [password] NVARCHAR (50) NOT NULL,
     [role]     INT           NOT NULL,
     [isActive] BIT           NULL,
+    [PhoneNo]  BIGINT        NULL,
+    [MailId]   NVARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([userId] ASC),
     FOREIGN KEY ([role]) REFERENCES [dbo].[Libraryroles] ([Id])
 );
+
+
 
 
 

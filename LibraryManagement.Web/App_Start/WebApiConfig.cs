@@ -32,6 +32,8 @@ namespace LibraryManagement.Web
             var container = new UnityContainer();
             container.RegisterType<IBookBL, BookBL>();
             container.RegisterType<IBookRepository, BookRepository>();
+            container.RegisterType<IUserMgmtRepository, UserMgmtRepository>();
+            container.RegisterType<IUserMgmtBL, UserMgmtBL>();
             container.RegisterType<IUserRepository, userRepository>();
             container.RegisterType<IUserBl, UserBl>();
             config.DependencyResolver = new UnityDependencyResolver(container);

@@ -19,9 +19,9 @@ namespace LibraryManagement.Domain.LMBL
         {
             return userObj.addUserDetails(user);
         }
-        public bool updateUserDetails(int id, User userdetails)
+        public User GetUserDetails(int id)
         {
-            return userObj.updateUserDetails(id, userdetails);
+            return userObj.GetUserDetails(id);
         }
 
     }

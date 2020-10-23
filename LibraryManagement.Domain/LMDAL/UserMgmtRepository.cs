@@ -14,7 +14,7 @@ namespace LibraryManagement.Domain.LMDAL
     public class UserMgmtRepository : IUserMgmtRepository
     {
         SqlConnection conn;
-        SqlCommand cmdAddUserDetails,cmdUpdateUserDetails;
+        SqlCommand cmdAddUserDetails,cmdGetUserDetails;
         public UserMgmtRepository()
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString);
@@ -30,6 +30,7 @@ namespace LibraryManagement.Domain.LMDAL
         {
             bool result = false;
             cmdAddUserDetails = new SqlCommand("ProcInsertUserDetails", conn);
+            cmdAddUserDetails.Parameters.AddWithValue("@Id", user.userId);
             cmdAddUserDetails.Parameters.AddWithValue("@username", user.username);
             cmdAddUserDetails.Parameters.AddWithValue("@password", user.password);
             cmdAddUserDetails.Parameters.AddWithValue("@role", user.role);
@@ -45,24 +46,27 @@ namespace LibraryManagement.Domain.LMDAL
             conn.Close();
             return result;
         }
-        public bool updateUserDetails(int id,User userdetails)
+        public User GetUserDetails(int id)
         {
-            bool updated = false;
-            cmdUpdateUserDetails = new SqlCommand("ProcUpdateUserDetails", conn);
-            cmdUpdateUserDetails.Parameters.AddWithValue("@Id", id);
-            cmdUpdateUserDetails.Parameters.AddWithValue("@username", userdetails.username);
-            cmdUpdateUserDetails.Parameters.AddWithValue("@password", userdetails.password);
-            cmdUpdateUserDetails.Parameters.AddWithValue("@role", userdetails.role);
-            cmdUpdateUserDetails.Parameters.AddWithValue("@isActive", userdetails.isActive);
-            cmdUpdateUserDetails.Parameters.AddWithValue("@phoneNo", userdetails.phoneNo);
-            cmdUpdateUserDetails.Parameters.AddWithValue("@mailid", userdetails.mailId);
-            cmdUpdateUserDetails.CommandType = CommandType.StoredProcedure;
+            User userdetails = new User();
+            cmdGetUserDetails = new SqlCommand("ProcGetUserDetails", conn);
+            cmdGetUserDetails.Parameters.AddWithValue("@Id", id);
+            cmdGetUserDetails.CommandType = CommandType.StoredProcedure;
             OpenConnection();
-            if (cmdUpdateUserDetails.ExecuteNonQuery() > 0)
+            SqlDataReader sqlData = cmdGetUserDetails.ExecuteReader();
+            while (sqlData.Read())
             {
-                updated = true;
+                userdetails.userId = Convert.ToInt32(sqlData[0]);
+                userdetails.username = sqlData[1].ToString();
+                userdetails.role = Convert.ToInt32(sqlData[2]);
+                userdetails.isActive = Convert.ToInt32(sqlData[3]);
+                userdetails.phoneNo = Convert.ToInt64(sqlData[4]);
+                userdetails.mailId = sqlData[5].ToString();
+                userdetails.password = sqlData[6].ToString();
             }
-            return updated;
+            conn.Close();
+            return userdetails;
         }
+
     }
 }

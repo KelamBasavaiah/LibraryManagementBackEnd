@@ -10,13 +10,17 @@ using System.Web.Http.Cors;
 
 namespace LibraryManagement.Web.Controllers
 {
-    [EnableCors("http://localhost:4200", "*", "GET,POST,PUT,DELETE")]
+    [EnableCors("http://localhost:4200", "*", "GET,POST")]
     public class UserMgmtController : ApiController
     {
         IUserMgmtBL userObj;
         public UserMgmtController(IUserMgmtBL userObj)
         {
             this.userObj = userObj;
+        }
+        public User Get(int id)
+        {
+            return userObj.GetUserDetails(id);
         }
         public bool Post([FromBody]User user)
         {
@@ -28,10 +32,6 @@ namespace LibraryManagement.Web.Controllers
             {
                 return false;
             }
-        }
-        public bool Put(int id, [FromBody]User userdetails)
-        {
-            return userObj.updateUserDetails(id, userdetails);
         }
     }
 }

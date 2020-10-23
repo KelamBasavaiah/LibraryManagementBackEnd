@@ -10,6 +10,6 @@ namespace LibraryManagement.Domain.Interfaces
     public interface IUserMgmtBL
     {
         bool addUserDetails(User user);
-        bool updateUserDetails(int id, User userdetails);
+        User GetUserDetails(int id);
     }
 }
