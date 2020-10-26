@@ -7,8 +7,11 @@
     [PhoneNo]  BIGINT        NULL,
     [MailId]   NVARCHAR (50) NULL,
     PRIMARY KEY CLUSTERED ([userId] ASC),
-    FOREIGN KEY ([role]) REFERENCES [dbo].[Libraryroles] ([Id])
+    FOREIGN KEY ([role]) REFERENCES [dbo].[Libraryroles] ([Id]),
+    UNIQUE NONCLUSTERED ([userName] ASC)
 );
+
+
 
 
 
