@@ -11,6 +11,7 @@ using System.Web.Http.Cors;
 namespace LibraryManagement.Web.Controllers
 {
     [EnableCors("http://localhost:4200", "*", "GET,POST,PUT,DELETE")]
+    [RoutePrefix("Book")]
     public class BookController : ApiController
     {
         public IBookBL bookBL;
@@ -18,20 +19,24 @@ namespace LibraryManagement.Web.Controllers
         {
             this.bookBL = bookBL;
         }
-        // GET: api/Book
-        public List<Book> Get()
+       
+        [HttpGet]
+        [Route("GetAllBooks")]
+        public List<Book> GetAllBooks()
         {
             return bookBL.GetAll();
         }
 
-        // GET: api/Book/5
+        [HttpGet]
+        [Route("GetBook")]
         public Book Get(string id)
         {
             return bookBL.GetBook(id);
         }
 
-        // POST: api/Book
-        public bool Post([FromBody]Book book)
+        [HttpPost]
+        [Route("addBook")]
+        public bool addBook([FromBody]Book book)
         {
             try
             {
@@ -43,16 +48,26 @@ namespace LibraryManagement.Web.Controllers
             }
         }
 
-        // PUT: api/Book/5
-        public bool Put(string id, [FromBody]Book book)
+        [HttpPut]
+        [Route("updateBook")]
+        public bool updateBook(string id, [FromBody]Book book)
         {
             return bookBL.UpdateBook(id, book);
         }
 
-        // DELETE: api/Book/5
+       [HttpDelete]
+       [Route("deleteBook")]
         public bool Delete(string id)
-        {
-            return bookBL.DeleteBook(id);
+        {            
+            try
+            {
+                return bookBL.DeleteBook(id);
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ using System.Web.Http.Cors;
 namespace LibraryManagement.Web.Controllers
 {
     [EnableCors("http://localhost:4200", "*", "GET,POST,PUT,DELETE")]
+    [RoutePrefix("User")]
     public class UserController : ApiController
     {
         IUserBl userObj;
@@ -18,21 +19,33 @@ namespace LibraryManagement.Web.Controllers
         {
             this.userObj=userObj;
         }
-        // GET: api/User
-        public List<User> Get(int userId)
+        
+        [HttpGet]
+        [Route("GetBooks")]
+        public List<User> GetBooks(int userId)
         {
             return userObj.getAllbooksforUser(userId);
         }
-
-        // GET: api/User/5
-        [Route("api/User/{username}/{password}")]
-        public login Get(string username,string password)
+        
+        [Route("login")]
+        [HttpPost]
+        public login login(login log)
         {
-            return userObj.getUser(username, password);
+           
+            try
+            {
+                return userObj.getUser(log.username, log.password);
+            }
+            catch (Exception)
+            {
+
+                return new login();
+            }
         }
 
-        // POST: api/User
-        public bool Post(string bookid,[FromBody]User user)
+        [HttpPost]
+        [Route("lendBook")]
+        public bool lendBook(string bookid,[FromBody]User user)
         {
             try
             {
@@ -44,15 +57,9 @@ namespace LibraryManagement.Web.Controllers
             }
         }
 
-        // PUT: api/User/5
-       
-        public login Put(string username,[FromBody]string password)
-        {
-            return userObj.getUser(username, password);
-        }
-
-        // DELETE: api/User/5
-        public bool Delete(int id)
+        [HttpPost]
+        [Route("returnBook")]
+        public bool returnBook(int id)
         {
             return userObj.returnBook(id);
         }
