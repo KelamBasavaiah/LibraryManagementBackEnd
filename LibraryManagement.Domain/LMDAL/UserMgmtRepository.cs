@@ -56,13 +56,14 @@ namespace LibraryManagement.Domain.LMDAL
             SqlDataReader sqlData = cmdGetUserDetails.ExecuteReader();
             while (sqlData.Read())
             {
-                userdetails.userId = Convert.ToInt32(sqlData[0]);
+                userdetails.id = Convert.ToInt32(sqlData[0]);
                 userdetails.username = sqlData[1].ToString();
-                userdetails.role = Convert.ToInt32(sqlData[2]);
-                userdetails.isActive = Convert.ToInt32(sqlData[3]);
-                userdetails.phoneNo = Convert.ToInt64(sqlData[4]);
-                userdetails.mailId = sqlData[5].ToString();
-                userdetails.password = sqlData[6].ToString();
+                userdetails.password = sqlData[2].ToString();
+                userdetails.role = Convert.ToInt32(sqlData[3]);
+                userdetails.isActive = Convert.ToInt32(sqlData[4]);
+                userdetails.phoneNo = Convert.ToInt64(sqlData[5]);
+                userdetails.mailId = sqlData[6].ToString();
+
             }
             conn.Close();
             return userdetails;
