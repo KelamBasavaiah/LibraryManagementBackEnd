@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace LibraryManagement.Web.Controllers
 {
-    [EnableCors("http://localhost:4200", "*", "GET,POST")]
+    [EnableCors("http://localhost:4200", "*", "GET,POST,PUT,DELETE")]
     public class UserMgmtController : ApiController
     {
         IUserMgmtBL userObj;
