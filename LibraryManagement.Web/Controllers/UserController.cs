@@ -22,46 +22,63 @@ namespace LibraryManagement.Web.Controllers
         
         [HttpGet]
         [Route("GetBooks")]
-        public List<User> GetBooks(int userId)
-        {
-            return userObj.getAllbooksforUser(userId);
+        public IHttpActionResult GetBooks(int userId)
+        {            
+            try
+            {
+                return Ok(userObj.getAllbooksforUser(userId));
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
         }
-        
-        [Route("login")]
+                
         [HttpPost]
-        public login login(login log)
+        [Route("login")]
+        public IHttpActionResult login(login log)
         {
            
             try
             {
-                return userObj.getUser(log.username, log.password);
+                return Ok(userObj.getUser(log.username, log.password));
             }
             catch (Exception)
             {
 
-                return new login();
+                return Ok(new login());
             }
         }
 
         [HttpPost]
         [Route("lendBook")]
-        public bool lendBook(string bookid,[FromBody]User user)
+        public IHttpActionResult lendBook(string bookid,[FromBody]User user)
         {
             try
             {
-                return userObj.lendingBooks(bookid, user.userId);
+                return Ok(userObj.lendingBooks(bookid, user.userId));
             }
             catch(Exception e)
             {
-                return false;
+                return Ok(false);
             }
         }
 
         [HttpPost]
         [Route("returnBook")]
-        public bool returnBook(int id)
+        public IHttpActionResult returnBook(int id)
         {
-            return userObj.returnBook(id);
+            try
+            {
+                return Ok(userObj.returnBook(id));
+            }
+            catch (Exception)
+            {
+
+                return Ok(false);
+            }
+            
         }
     }
 }

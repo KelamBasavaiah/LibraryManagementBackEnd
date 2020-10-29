@@ -22,51 +22,78 @@ namespace LibraryManagement.Web.Controllers
        
         [HttpGet]
         [Route("GetAllBooks")]
-        public List<Book> GetAllBooks()
+        public IHttpActionResult GetAllBooks()
         {
-            return bookBL.GetAll();
+            
+            try
+            {
+                return Ok(bookBL.GetAll());
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("GetBook")]
-        public Book Get(string id)
+        public IHttpActionResult Get(string id)
         {
-            return bookBL.GetBook(id);
+            try
+            {
+                return Ok(bookBL.GetBook(id));
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound,ex.Message);
+            }
+            
         }
 
         [HttpPost]
         [Route("addBook")]
-        public bool addBook([FromBody]Book book)
+        public IHttpActionResult addBook([FromBody]Book book)
         {
             try
             {
-                return bookBL.AddBook(book);
+                return Ok(bookBL.AddBook(book));
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                return false;
+                return Ok(false);
             }
         }
 
         [HttpPut]
         [Route("updateBook")]
-        public bool updateBook(string id, [FromBody]Book book)
+        public IHttpActionResult updateBook(string id, [FromBody]Book book)
         {
-            return bookBL.UpdateBook(id, book);
+            
+            try
+            {
+                return Ok(bookBL.UpdateBook(id, book));
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
         }
 
        [HttpDelete]
        [Route("deleteBook")]
-        public bool Delete(string id)
+        public IHttpActionResult Delete(string id)
         {            
             try
             {
-                return bookBL.DeleteBook(id);
+                return Ok(bookBL.DeleteBook(id));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return false;
+                return Ok(false);
             }
         }
     }

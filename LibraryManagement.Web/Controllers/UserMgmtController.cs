@@ -10,7 +10,8 @@ using System.Web.Http.Cors;
 
 namespace LibraryManagement.Web.Controllers
 {
-    [EnableCors("http://localhost:4200", "*", "GET,POST")]
+    [EnableCors("http://localhost:4200", "*", "GET,POST,PUT,DELETE")]
+    [RoutePrefix("UserMgmt")]
     public class UserMgmtController : ApiController
     {
         IUserMgmtBL userObj;
@@ -18,41 +19,61 @@ namespace LibraryManagement.Web.Controllers
         {
             this.userObj = userObj;
         }
-        public User Get(int id)
-        {
-            return userObj.GetUserDetails(id);
-        }
-        public List<User> Get()
-        {
-            try
-            {
-                return userObj.getAllUserMgmtDetails();
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-        public bool Post([FromBody]User user)
+
+        [HttpGet]
+        [Route("GetUser")]
+        public IHttpActionResult GetUser(int id)
         {
             try
             {
-                return userObj.addUserDetails(user);
+                return Ok(userObj.GetUserDetails(id));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return false;
-            }
+
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }            
         }
-        public bool Delete(int userId)
+
+        [HttpGet]
+        [Route("GetAllUsers")]
+        public IHttpActionResult GerallUsers()
         {
             try
             {
-                return userObj.deleteUser(userId);
+                return Ok(userObj.getAllUserMgmtDetails());
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                return false;
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("AddUser")]
+        public IHttpActionResult AddUser([FromBody]User user)
+        {
+            try
+            {
+                return Ok(userObj.addUserDetails(user));
+            }
+            catch (Exception ex)
+            {
+                return Ok(false);
+            }
+        }
+
+        [HttpDelete]
+        [Route("DeleteUser")]
+        public IHttpActionResult Delete(int userId)
+        {
+            try
+            {
+                return Ok(userObj.deleteUser(userId));
+            }
+            catch (Exception ex)
+            {
+                return Ok(false);
             }
         }
     }
