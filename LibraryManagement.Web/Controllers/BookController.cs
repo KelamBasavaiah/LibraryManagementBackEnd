@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -22,12 +23,13 @@ namespace LibraryManagement.Web.Controllers
        
         [HttpGet]
         [Route("GetAllBooks")]
-        public IHttpActionResult GetAllBooks()
+        public async Task<IHttpActionResult> GetAllBooks()
         {
             
             try
             {
-                return Ok(bookBL.GetAll());
+                var result = await bookBL.GetAll();
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -38,11 +40,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetBook")]
-        public IHttpActionResult Get(string id)
+        public async Task<IHttpActionResult> Get(string id)
         {
             try
             {
-                return Ok(bookBL.GetBook(id));
+                return Ok(await bookBL.GetBook(id));
             }
             catch (Exception ex)
             {
@@ -54,11 +56,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpPost]
         [Route("addBook")]
-        public IHttpActionResult addBook([FromBody]Book book)
+        public async Task<IHttpActionResult> addBook([FromBody]Book book)
         {
             try
             {
-                return Ok(bookBL.AddBook(book));
+                return Ok(await bookBL.AddBook(book));
             }
             catch(Exception ex)
             {
@@ -68,12 +70,12 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpPut]
         [Route("updateBook")]
-        public IHttpActionResult updateBook(string id, [FromBody]Book book)
+        public async Task<IHttpActionResult> updateBook(string id, [FromBody]Book book)
         {
             
             try
             {
-                return Ok(bookBL.UpdateBook(id, book));
+                return Ok(await bookBL.UpdateBook(id, book));
             }
             catch (Exception ex)
             {
@@ -84,11 +86,11 @@ namespace LibraryManagement.Web.Controllers
 
        [HttpDelete]
        [Route("deleteBook")]
-        public IHttpActionResult Delete(string id)
+        public async Task<IHttpActionResult> Delete(string id)
         {            
             try
             {
-                return Ok(bookBL.DeleteBook(id));
+                return Ok(await bookBL.DeleteBook(id));
             }
             catch (Exception ex)
             {

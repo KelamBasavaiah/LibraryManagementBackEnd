@@ -9,9 +9,9 @@ namespace LibraryManagement.Domain.Interfaces
 {
     public interface IUserMgmtBL
     {
-        bool addUserDetails(User user);
-        User GetUserDetails(int id);
-        List<User> getAllUserMgmtDetails();
-        bool deleteUser(int userId);
+        Task<bool> addUserDetails(User user);
+        Task<User> GetUserDetails(int id);
+        Task<List<User>> getAllUserMgmtDetails();
+        Task<bool> deleteUser(int userId);
     }
 }
