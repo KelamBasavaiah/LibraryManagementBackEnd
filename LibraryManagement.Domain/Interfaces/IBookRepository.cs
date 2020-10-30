@@ -9,12 +9,12 @@ namespace LibraryManagement.Domain.Interfaces
 {
    public interface IBookRepository
     {
-        List<Book> GetAll();
+        Task<List<Book>> GetAll();
 
-        Book GetBook(string id);
-        bool AddBook(Book book);
-        bool DeleteBook(string bookId);
-        bool UpdateBook(string id, Book book);
+        Task<Book> GetBook(string id);
+        Task<bool> AddBook(Book book);
+        Task<bool> DeleteBook(string bookId);
+        Task<bool> UpdateBook(string id, Book book);
         
     }
 }

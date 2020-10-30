@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Threading.Tasks;
 
 namespace LibraryManagement.Web.Controllers
 {
@@ -22,11 +23,11 @@ namespace LibraryManagement.Web.Controllers
         
         [HttpGet]
         [Route("GetBooks")]
-        public IHttpActionResult GetBooks(int userId)
+        public async Task<IHttpActionResult> GetBooks(int userId)
         {            
             try
             {
-                return Ok(userObj.getAllbooksforUser(userId));
+                return Ok(await userObj.getAllbooksforUser(userId));
             }
             catch (Exception ex)
             {
@@ -53,11 +54,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpPost]
         [Route("lendBook")]
-        public IHttpActionResult lendBook(string bookid,[FromBody]User user)
+        public async Task<IHttpActionResult> lendBook(string bookid,[FromBody]User user)
         {
             try
             {
-                return Ok(userObj.lendingBooks(bookid, user.userId));
+                return Ok( await userObj.lendingBooks(bookid, user.userId));
             }
             catch(Exception e)
             {
@@ -67,11 +68,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpPost]
         [Route("returnBook")]
-        public IHttpActionResult returnBook(int id)
+        public async Task<IHttpActionResult> returnBook(int id)
         {
             try
             {
-                return Ok(userObj.returnBook(id));
+                return Ok(await userObj.returnBook(id));
             }
             catch (Exception)
             {

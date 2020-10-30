@@ -17,27 +17,27 @@ namespace LibraryManagement.Domain.LMBL
            this.bookObj = bookObj;
         }
 
-        public bool DeleteBook(string bookId)
+        public async Task<bool> DeleteBook(string bookId)
         {
-            return bookObj.DeleteBook(bookId);
+            return await bookObj.DeleteBook(bookId);
         }
 
-        public List<Book> GetAll()
+        public async Task<List<Book>> GetAll()
         {
-            return bookObj.GetAll();
+            return await bookObj.GetAll();
         }
 
-        public Book GetBook(string id)
+        public async Task<Book>  GetBook(string id)
         {
-            return bookObj.GetBook(id);
+            return await bookObj.GetBook(id);
         }
-        public bool AddBook(Book book)
+        public async Task<bool> AddBook(Book book)
         {
-            return bookObj.AddBook(book);
+            return await bookObj.AddBook(book);
         }
-        public bool UpdateBook(string id,Book book)
+        public async Task<bool> UpdateBook(string id,Book book)
         {
-            return bookObj.UpdateBook(id, book);
+            return await bookObj.UpdateBook(id, book);
         }
     }
 }
