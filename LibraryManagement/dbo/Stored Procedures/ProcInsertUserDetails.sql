@@ -1,4 +1,4 @@
-﻿CREATE PROC ProcInsertUserDetails(@Id int = NULL,@username nvarchar(50),@password nvarchar(50),@role int = 2,@isActive bit = 1
+﻿CREATE PROC ProcInsertUserDetails(@Id int = NULL,@username nvarchar(50),@password nvarchar(50),@role nvarchar(10),@isActive bit = 1
 			,@phoneno bigint,@mailid nvarchar(50))
 AS
 BEGIN

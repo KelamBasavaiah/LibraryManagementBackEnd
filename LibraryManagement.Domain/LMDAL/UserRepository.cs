@@ -38,7 +38,7 @@ namespace LibraryManagement.Domain.LMDAL
                 {
                     login.userId = Convert.ToInt32(dr[0]);
                     login.password = Convert.ToString(dr[1]);
-                    login.role= Convert.ToInt32(dr[2]);
+                    login.role= Convert.ToString(dr[2]);
                     login.username = username;
                 }
 
