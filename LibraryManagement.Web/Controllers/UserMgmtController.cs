@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Threading.Tasks;
 
 namespace LibraryManagement.Web.Controllers
 {
@@ -22,11 +23,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetUser")]
-        public IHttpActionResult GetUser(int id)
+        public async Task<IHttpActionResult> GetUser(int id)
         {
             try
             {
-                return Ok(userObj.GetUserDetails(id));
+                return Ok(await userObj.GetUserDetails(id));
             }
             catch (Exception ex)
             {
@@ -37,11 +38,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
-        public IHttpActionResult GerallUsers()
+        public async Task<IHttpActionResult> GerallUsers()
         {
             try
             {
-                return Ok(userObj.getAllUserMgmtDetails());
+                return Ok(await userObj.getAllUserMgmtDetails());
             }
             catch (Exception ex)
             {
@@ -51,11 +52,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpPost]
         [Route("AddUser")]
-        public IHttpActionResult AddUser([FromBody]User user)
+        public async Task<IHttpActionResult> AddUser([FromBody]User user)
         {
             try
             {
-                return Ok(userObj.addUserDetails(user));
+                return Ok(await userObj.addUserDetails(user));
             }
             catch (Exception ex)
             {
@@ -65,11 +66,11 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpDelete]
         [Route("DeleteUser")]
-        public IHttpActionResult Delete(int userId)
+        public async Task<IHttpActionResult> Delete(int userId)
         {
             try
             {
-                return Ok(userObj.deleteUser(userId));
+                return Ok(await userObj.deleteUser(userId));
             }
             catch (Exception ex)
             {

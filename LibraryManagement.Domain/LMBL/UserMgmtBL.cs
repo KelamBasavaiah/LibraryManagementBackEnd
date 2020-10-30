@@ -15,21 +15,21 @@ namespace LibraryManagement.Domain.LMBL
         {
             this.userObj = userObj;
         }
-        public bool addUserDetails(User user)
+        public  async Task<bool> addUserDetails(User user)
         {
-            return userObj.addUserDetails(user);
+            return await userObj.addUserDetails(user);
         }
-        public User GetUserDetails(int id)
+        public async Task<User> GetUserDetails(int id)
         {
-            return userObj.GetUserDetails(id);
+            return await userObj.GetUserDetails(id);
         }
-        public List<User> getAllUserMgmtDetails()
+        public async Task<List<User>> getAllUserMgmtDetails()
         {
-            return userObj.getAllUserMgmtDetails();
+            return await userObj.getAllUserMgmtDetails();
         }
-        public bool deleteUser(int userId)
+        public async Task<bool> deleteUser(int userId)
         {
-            return userObj.deleteUser(userId);
+            return await userObj.deleteUser(userId);
         }
 
     }
