@@ -34,5 +34,16 @@ namespace LibraryManagement.Domain.LMBL
         {
             return await userObj.returnBook(id);
         }
+        public async Task<bool> changePassword(int userId,string oldPassword,string newPassword)
+        {
+            if(await userObj.checkingOldPassword(userId, oldPassword))
+            {
+                return await userObj.updatePassword(userId, newPassword);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
