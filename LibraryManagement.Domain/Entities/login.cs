@@ -12,7 +12,7 @@ namespace LibraryManagement.Domain.Entities
         public string username { get; set; }
 
         public string password { get; set; }
-        public int? role { get; set; }
+        public string role { get; set; }
         public bool aurthorize { get; set; }
 
     }
