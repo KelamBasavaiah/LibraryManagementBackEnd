@@ -64,7 +64,7 @@ namespace LibraryManagement.Domain.LMDAL
                     userdetails.id = Convert.ToInt32(sqlData[0]);
                     userdetails.username = sqlData[1].ToString();
                     userdetails.password = sqlData[2].ToString();
-                    userdetails.role = Convert.ToInt32(sqlData[3]);
+                    userdetails.role = Convert.ToString(sqlData[3]);
                     userdetails.isActive = Convert.ToInt32(sqlData[4]);
                     userdetails.phoneNo = Convert.ToInt64(sqlData[5]);
                     userdetails.mailId = sqlData[6].ToString();
@@ -90,7 +90,7 @@ namespace LibraryManagement.Domain.LMDAL
                     user.userId = Convert.ToInt32(drUsers[0].ToString());
                     user.username = drUsers[1].ToString();
                     user.password = drUsers[2].ToString();
-                    user.role = Convert.ToInt32(drUsers[3].ToString());
+                    user.role = drUsers[3].ToString();
                     user.isActive = Convert.ToInt32(drUsers[4]);
                     user.phoneNo = Convert.ToInt64(drUsers[5].ToString());
                     user.mailId = drUsers[6].ToString();
