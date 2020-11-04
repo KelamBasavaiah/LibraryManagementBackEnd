@@ -9,11 +9,11 @@ namespace LibraryManagement.Domain.Interfaces
 {
     public interface IBookBL
     {
-        List<Book> GetAll();
+        Task<List<Book>> GetAll();
 
-        Book GetBook(string id);
-        bool DeleteBook(string bookId);
-        bool AddBook(Book book);
-        bool UpdateBook(string id, Book book);
+        Task<Book> GetBook(string id);
+        Task<bool> DeleteBook(string bookId);
+        Task<bool> AddBook(Book book);
+        Task<bool> UpdateBook(string id, Book book);
     }
 }

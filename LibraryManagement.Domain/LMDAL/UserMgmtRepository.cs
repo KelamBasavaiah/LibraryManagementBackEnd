@@ -26,7 +26,7 @@ namespace LibraryManagement.Domain.LMDAL
                 conn.Close();
             conn.Open();
         }
-        public bool addUserDetails(User user)
+        public async Task<bool> addUserDetails(User user)
         {
             bool result = false;
             cmdAddUserDetails = new SqlCommand("ProcInsertUserDetails", conn);
@@ -39,14 +39,17 @@ namespace LibraryManagement.Domain.LMDAL
             cmdAddUserDetails.Parameters.AddWithValue("@mailid", user.mailId);
             cmdAddUserDetails.CommandType = CommandType.StoredProcedure;
             OpenConnection();
-            if (cmdAddUserDetails.ExecuteNonQuery() > 0)
+            await Task.Run(() =>
             {
-                result = true;
-            }
+                if (cmdAddUserDetails.ExecuteNonQuery() > 0)
+                {
+                    result = true;
+                }
+            });
             conn.Close();
             return result;
         }
-        public User GetUserDetails(int id)
+        public async Task<User> GetUserDetails(int id)
         {
             User userdetails = new User();
             cmdGetUserDetails = new SqlCommand("ProcGetUserDetails", conn);
@@ -54,21 +57,24 @@ namespace LibraryManagement.Domain.LMDAL
             cmdGetUserDetails.CommandType = CommandType.StoredProcedure;
             OpenConnection();
             SqlDataReader sqlData = cmdGetUserDetails.ExecuteReader();
-            while (sqlData.Read())
+            await Task.Run(() =>
             {
-                userdetails.id = Convert.ToInt32(sqlData[0]);
-                userdetails.username = sqlData[1].ToString();
-                userdetails.password = sqlData[2].ToString();
-                userdetails.role = Convert.ToInt32(sqlData[3]);
-                userdetails.isActive = Convert.ToInt32(sqlData[4]);
-                userdetails.phoneNo = Convert.ToInt64(sqlData[5]);
-                userdetails.mailId = sqlData[6].ToString();
+                while (sqlData.Read())
+                {
+                    userdetails.id = Convert.ToInt32(sqlData[0]);
+                    userdetails.username = sqlData[1].ToString();
+                    userdetails.password = sqlData[2].ToString();
+                    userdetails.role = Convert.ToString(sqlData[3]);
+                    userdetails.isActive = Convert.ToInt32(sqlData[4]);
+                    userdetails.phoneNo = Convert.ToInt64(sqlData[5]);
+                    userdetails.mailId = sqlData[6].ToString();
 
-            }
+                }
+            });
             conn.Close();
             return userdetails;
         }
-        public List<User> getAllUserMgmtDetails()
+        public async Task<List<User>> getAllUserMgmtDetails()
         {
             List<User> users = new List<User>();
             cmdGetAllUsers = new SqlCommand("procGetAllUserDetails", conn);
@@ -76,33 +82,38 @@ namespace LibraryManagement.Domain.LMDAL
             OpenConnection();
             SqlDataReader drUsers = cmdGetAllUsers.ExecuteReader();
             User user = null;
-
-            while (drUsers.Read())
+            await Task.Run(() =>
             {
-                user = new User();
-                user.userId = Convert.ToInt32(drUsers[0].ToString());
-                user.username = drUsers[1].ToString();
-                user.password = drUsers[2].ToString();
-                user.role = Convert.ToInt32(drUsers[3].ToString());
-                user.isActive = Convert.ToInt32(drUsers[4]);
-                user.phoneNo = Convert.ToInt64(drUsers[5].ToString());
-                user.mailId = drUsers[6].ToString();
-                users.Add(user);
-            }
+                while (drUsers.Read())
+                {
+                    user = new User();
+                    user.userId = Convert.ToInt32(drUsers[0].ToString());
+                    user.username = drUsers[1].ToString();
+                    user.password = drUsers[2].ToString();
+                    user.role = drUsers[3].ToString();
+                    user.isActive = Convert.ToInt32(drUsers[4]);
+                    user.phoneNo = Convert.ToInt64(drUsers[5].ToString());
+                    user.mailId = drUsers[6].ToString();
+                    users.Add(user);
+                }
+            });
             conn.Close();
             return users;
         }
-        public bool deleteUser(int userId)
+        public async Task<bool> deleteUser(int userId)
         {
             bool deleted = false;
             cmdDelUsr = new SqlCommand("procDeleteUser",conn);
             cmdDelUsr.Parameters.AddWithValue("@userId", userId);
             cmdDelUsr.CommandType = CommandType.StoredProcedure;
             OpenConnection();
-            if(cmdDelUsr.ExecuteNonQuery()>0)
+            await Task.Run(() =>
             {
-                deleted=true;
-            }
+                if (cmdDelUsr.ExecuteNonQuery() > 0)
+                {
+                    deleted = true;
+                }
+            });
             conn.Close();
             return deleted;
         }

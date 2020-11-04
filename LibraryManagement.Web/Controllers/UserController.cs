@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Threading.Tasks;
 
 namespace LibraryManagement.Web.Controllers
 {
@@ -22,46 +23,77 @@ namespace LibraryManagement.Web.Controllers
         
         [HttpGet]
         [Route("GetBooks")]
-        public List<User> GetBooks(int userId)
-        {
-            return userObj.getAllbooksforUser(userId);
+        public async Task<IHttpActionResult> GetBooks(int userId)
+        {            
+            try
+            {
+                return Ok(await userObj.getAllbooksforUser(userId));
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
         }
-        
-        [Route("login")]
+                
         [HttpPost]
-        public login login(login log)
+        [Route("login")]
+        public IHttpActionResult login(login log)
         {
            
             try
             {
-                return userObj.getUser(log.username, log.password);
+                return Ok(userObj.getUser(log.username, log.password));
             }
             catch (Exception)
             {
 
-                return new login();
+                return Ok(new login());
             }
         }
 
         [HttpPost]
         [Route("lendBook")]
-        public bool lendBook(string bookid,[FromBody]User user)
+        public async Task<IHttpActionResult> lendBook(string bookid,[FromBody]User user)
         {
             try
             {
-                return userObj.lendingBooks(bookid, user.userId);
+                return Ok( await userObj.lendingBooks(bookid, user.userId));
             }
             catch(Exception e)
             {
-                return false;
+                return Ok(false);
             }
         }
 
         [HttpPost]
         [Route("returnBook")]
-        public bool returnBook(int id)
+        public async Task<IHttpActionResult> returnBook(int id)
         {
-            return userObj.returnBook(id);
+            try
+            {
+                return Ok(await userObj.returnBook(id));
+            }
+            catch (Exception)
+            {
+
+                return Ok(false);
+            }
+            
+        }
+        [HttpPost]
+        [Route("changePassword")]
+        public async Task<IHttpActionResult> changePassword(int userId,string oldPassword,string newPassword)
+        {
+            try
+            {
+                return Ok(await userObj.changePassword(userId, oldPassword, newPassword));
+            }
+            catch (Exception)
+            {
+
+                return Ok(false);
+            }
         }
     }
 }

@@ -22,17 +22,28 @@ namespace LibraryManagement.Domain.LMBL
             if(login.password== password) { login.aurthorize = true; }
             return login;           
         }
-        public List<User> getAllbooksforUser(int userId)
+        public async Task<List<User>> getAllbooksforUser(int userId)
         {
-            return userObj.getAllbooksforUser(userId);
+            return await userObj.getAllbooksforUser(userId);
         }
-        public bool lendingBooks(string bookid, int userID)
+        public async Task<bool> lendingBooks(string bookid, int userID)
         {
-            return userObj.lendingBooks(bookid, userID);
+            return await userObj.lendingBooks(bookid, userID);
         }
-        public bool returnBook(int id)
+        public async Task<bool> returnBook(int id)
         {
-            return userObj.returnBook(id);
+            return await userObj.returnBook(id);
+        }
+        public async Task<bool> changePassword(int userId,string oldPassword,string newPassword)
+        {
+            if(await userObj.checkingOldPassword(userId, oldPassword))
+            {
+                return await userObj.updatePassword(userId, newPassword);
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

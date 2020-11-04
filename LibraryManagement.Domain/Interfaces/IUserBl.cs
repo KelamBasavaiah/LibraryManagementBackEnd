@@ -10,9 +10,10 @@ namespace LibraryManagement.Domain.Interfaces
 {
    public interface IUserBl
     {        
-        List<User> getAllbooksforUser(int userId);
-        bool returnBook(int id);
-        login getUser(string username,string password);     
-        bool lendingBooks(string bookid, int userID);
+        Task<List<User>> getAllbooksforUser(int userId);
+        Task<bool> returnBook(int id);
+        login getUser(string username,string password);
+        Task<bool> lendingBooks(string bookid, int userID);
+        Task<bool> changePassword(int userId, string oldPassword, string newPassword);
     }
 }

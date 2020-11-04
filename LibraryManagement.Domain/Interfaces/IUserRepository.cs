@@ -9,10 +9,12 @@ using LibraryManagement.Domain.Entities;
 namespace LibraryManagement.Domain.Interfaces
 {
    public interface IUserRepository
-    {        
-        List<User> getAllbooksforUser(int userId);
-        bool returnBook(int id);
-        login getUser(string username);                
-        bool lendingBooks(string bookid, int userID);
+    {
+        Task<List<User>> getAllbooksforUser(int userId);
+        Task<bool> returnBook(int id);
+        login getUser(string username);
+        Task<bool> lendingBooks(string bookid, int userID);
+        Task<bool> checkingOldPassword(int userId, string oldPassword);
+        Task<bool> updatePassword(int userId, string newPassword);
     }
 }

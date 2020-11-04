@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -22,51 +23,79 @@ namespace LibraryManagement.Web.Controllers
        
         [HttpGet]
         [Route("GetAllBooks")]
-        public List<Book> GetAllBooks()
+        public async Task<IHttpActionResult> GetAllBooks()
         {
-            return bookBL.GetAll();
+            
+            try
+            {
+                var result = await bookBL.GetAll();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
         }
 
         [HttpGet]
         [Route("GetBook")]
-        public Book Get(string id)
+        public async Task<IHttpActionResult> Get(string id)
         {
-            return bookBL.GetBook(id);
+            try
+            {
+                return Ok(await bookBL.GetBook(id));
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound,ex.Message);
+            }
+            
         }
 
         [HttpPost]
         [Route("addBook")]
-        public bool addBook([FromBody]Book book)
+        public async Task<IHttpActionResult> addBook([FromBody]Book book)
         {
             try
             {
-                return bookBL.AddBook(book);
+                return Ok(await bookBL.AddBook(book));
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
-                return false;
+                return Ok(false);
             }
         }
 
         [HttpPut]
         [Route("updateBook")]
-        public bool updateBook(string id, [FromBody]Book book)
+        public async Task<IHttpActionResult> updateBook(string id, [FromBody]Book book)
         {
-            return bookBL.UpdateBook(id, book);
+            
+            try
+            {
+                return Ok(await bookBL.UpdateBook(id, book));
+            }
+            catch (Exception ex)
+            {
+
+                return Content(HttpStatusCode.NotFound, ex.Message);
+            }
         }
 
        [HttpDelete]
        [Route("deleteBook")]
-        public bool Delete(string id)
+        public async Task<IHttpActionResult> Delete(string id)
         {            
             try
             {
-                return bookBL.DeleteBook(id);
+                return Ok(await bookBL.DeleteBook(id));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return false;
+                return Ok(false);
             }
         }
     }

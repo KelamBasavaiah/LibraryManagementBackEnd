@@ -26,58 +26,65 @@ namespace LibraryManagement.Domain.LMDAL
                 conn.Close();
             conn.Open();
         }
-        public List<Book> GetAll()
+        public async Task<List<Book>> GetAll()
         {
             List<Book> books = new List<Book>();
             cmdBooks = new SqlCommand("GetAllBooks", conn);
             cmdBooks.CommandType = CommandType.StoredProcedure;
-            OpenConnection();
-            SqlDataReader drbook = cmdBooks.ExecuteReader();
+            
             Book book = null;
-            while (drbook.Read())
+            await Task.Run(() =>
             {
-                book = new Book();
-                book.id = drbook[0].ToString();
-                book.name = drbook[1].ToString();
-                book.author_name = drbook[2].ToString();
-                book.price = Convert.ToInt32(drbook[3]);
-                book.contact =Convert.ToInt64(drbook[4].ToString());
-                book.edition = Convert.ToInt32(drbook[5].ToString());
-                book.publishedDate = Convert.ToDateTime(drbook[6].ToString());
-                book.publisher = drbook[7].ToString();
-                book.copies = Convert.ToInt32(drbook[8].ToString());
-                book.genres = drbook[9].ToString();
-                books.Add(book);
-            }
+                OpenConnection();
+                SqlDataReader drbook = cmdBooks.ExecuteReader();
+                while (drbook.Read())
+                {
+                    book = new Book();
+                    book.id = drbook[0].ToString();
+                    book.name = drbook[1].ToString();
+                    book.author_name = drbook[2].ToString();
+                    book.price = Convert.ToInt32(drbook[3]);
+                    book.contact = Convert.ToInt64(drbook[4].ToString());
+                    book.edition = Convert.ToInt32(drbook[5].ToString());
+                    book.publishedDate = Convert.ToDateTime(drbook[6].ToString());
+                    book.publisher = drbook[7].ToString();
+                    book.copies = Convert.ToInt32(drbook[8].ToString());
+                    book.genres = drbook[9].ToString();
+                    books.Add(book);
+                }
+            });
             conn.Close();
             return books;
 
         }
-        public Book GetBook(string id)
+        public async Task<Book> GetBook(string id)
         {
             Book book = new Book();
             cmdBook = new SqlCommand("GetBook", conn);
             cmdBook.Parameters.AddWithValue("@Id", id);
             cmdBook.CommandType = CommandType.StoredProcedure;
-            OpenConnection();
-            SqlDataReader sqlData = cmdBook.ExecuteReader();
-            while (sqlData.Read())
+            await Task.Run(() =>
             {
-                book.id = sqlData[0].ToString();
-                book.name = sqlData[1].ToString();
-                book.author_name = sqlData[2].ToString();
-                book.price = Convert.ToInt32(sqlData[3]);
-                book.contact = Convert.ToInt64(sqlData[4].ToString());
-                book.edition = Convert.ToInt32(sqlData[5].ToString());
-                book.publishedDate = Convert.ToDateTime(sqlData[6].ToString());
-                book.publisher = sqlData[7].ToString();
-                book.copies = Convert.ToInt32(sqlData[8].ToString());
-                book.genres = sqlData[9].ToString();
-            } 
+                OpenConnection();
+                SqlDataReader sqlData = cmdBook.ExecuteReader();
+                while (sqlData.Read())
+                {
+                    book.id = sqlData[0].ToString();
+                    book.name = sqlData[1].ToString();
+                    book.author_name = sqlData[2].ToString();
+                    book.price = Convert.ToInt32(sqlData[3]);
+                    book.contact = Convert.ToInt64(sqlData[4].ToString());
+                    book.edition = Convert.ToInt32(sqlData[5].ToString());
+                    book.publishedDate = Convert.ToDateTime(sqlData[6].ToString());
+                    book.publisher = sqlData[7].ToString();
+                    book.copies = Convert.ToInt32(sqlData[8].ToString());
+                    book.genres = sqlData[9].ToString();
+                }
+            });
             conn.Close();
             return book;
         }
-        public bool AddBook(Book book)
+        public async Task<bool> AddBook(Book book)
         {
             bool inserted = false;
             cmdAddBooks = new SqlCommand("AddBooks", conn);
@@ -92,13 +99,16 @@ namespace LibraryManagement.Domain.LMDAL
             cmdAddBooks.Parameters.AddWithValue("@Publisher", book.publisher);
             cmdAddBooks.Parameters.AddWithValue("@Genres", book.genres);
             cmdAddBooks.CommandType = CommandType.StoredProcedure;
-            OpenConnection();
-            if (cmdAddBooks.ExecuteNonQuery()> 0)
-                inserted = true;
+            await Task.Run(() =>
+            {
+                OpenConnection();
+                if (cmdAddBooks.ExecuteNonQuery() > 0)
+                    inserted = true;
+            });
             return inserted;
         }
 
-        public bool UpdateBook(string id, Book book)
+        public async Task<bool> UpdateBook(string id, Book book)
         {
             bool updated = false;
             cmdUpdateBook = new SqlCommand("UpdateBook", conn);
@@ -114,32 +124,32 @@ namespace LibraryManagement.Domain.LMDAL
             cmdUpdateBook.Parameters.AddWithValue("@Genres", book.genres);
             cmdUpdateBook.CommandType = CommandType.StoredProcedure;
             OpenConnection();
-            if(cmdUpdateBook.ExecuteNonQuery() > 0)
+
+            await Task.Run(() =>
             {
-                updated = true;
-            }
+                if (cmdUpdateBook.ExecuteNonQuery() > 0)
+                {
+                    updated = true;
+                }
+            });
             return updated;
         }
 
 
-        public bool DeleteBook(string bookId)
+        public async Task<bool> DeleteBook(string bookId)
         {
-            bool result;
+            bool result=false;
             cmdBook = new SqlCommand("deleteBook", conn);
             cmdBook.Parameters.AddWithValue("@bookId", bookId);        
             cmdBook.CommandType = CommandType.StoredProcedure;
             OpenConnection();
-            try
+            await Task.Run(() =>
             {
-               var k = cmdBook.ExecuteReader();
-                result = true;
-               
-            }
-            catch (Exception)
-            {
-                result = false;
-               
-            }
+                if (cmdBook.ExecuteNonQuery() > 0)
+                {
+                    result = true;
+                }
+            });
             conn.Close();
             return result;
         }
