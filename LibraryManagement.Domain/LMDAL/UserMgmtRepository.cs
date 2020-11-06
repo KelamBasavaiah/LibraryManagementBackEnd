@@ -26,7 +26,7 @@ namespace LibraryManagement.Domain.LMDAL
                 conn.Close();
             conn.Open();
         }
-        public async Task<bool> addUserDetails(User user)
+        public async Task<bool> addUserDetails(User user) //Add & Update user details
         {
             bool result = false;
             cmdAddUserDetails = new SqlCommand("ProcInsertUserDetails", conn);
@@ -37,6 +37,7 @@ namespace LibraryManagement.Domain.LMDAL
             cmdAddUserDetails.Parameters.AddWithValue("@isActive", user.isActive);
             cmdAddUserDetails.Parameters.AddWithValue("@phoneno", user.phoneNo);
             cmdAddUserDetails.Parameters.AddWithValue("@mailid", user.mailId);
+            cmdAddUserDetails.Parameters.AddWithValue("@newPassword", user.newPassword);
             cmdAddUserDetails.CommandType = CommandType.StoredProcedure;
             OpenConnection();
             await Task.Run(() =>
