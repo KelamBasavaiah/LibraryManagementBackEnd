@@ -134,9 +134,9 @@ namespace LibraryManagement.Domain.LMDAL
         public async Task<bool> updatePassword(int userId, string newPassword)
         {
             bool result = false;
-            cmdPaswd = new SqlCommand("ProcAddBookRecords", conn);
+            cmdPaswd = new SqlCommand("UpdatePassword", conn);
             cmdPaswd.Parameters.AddWithValue("@userId", userId);
-            cmdPaswd.Parameters.AddWithValue("@bookId", newPassword);
+            cmdPaswd.Parameters.AddWithValue("@password", newPassword);
             cmdPaswd.CommandType = CommandType.StoredProcedure;
             await Task.Run(() =>
             {

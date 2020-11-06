@@ -15,6 +15,7 @@ namespace LibraryManagement.Web.Controllers
     [RoutePrefix("User")]
     public class UserController : ApiController
     {
+        Task<bool> returnBookStatus;
         IUserBl userObj;
         public UserController(IUserBl userObj)
         {
@@ -68,11 +69,15 @@ namespace LibraryManagement.Web.Controllers
 
         [HttpPost]
         [Route("returnBook")]
-        public async Task<IHttpActionResult> returnBook(int id)
+        public async Task<IHttpActionResult> returnBook(List<int> id)
         {
             try
             {
-                return Ok(await userObj.returnBook(id));
+                foreach (var item in id)
+                {
+                    returnBookStatus = userObj.returnBook(item);
+                }
+                return Ok(await returnBookStatus);
             }
             catch (Exception)
             {
