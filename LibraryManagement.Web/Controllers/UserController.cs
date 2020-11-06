@@ -81,19 +81,5 @@ namespace LibraryManagement.Web.Controllers
             }
             
         }
-        [HttpPost]
-        [Route("changePassword")]
-        public async Task<IHttpActionResult> changePassword(int userId,string oldPassword,string newPassword)
-        {
-            try
-            {
-                return Ok(await userObj.changePassword(userId, oldPassword, newPassword));
-            }
-            catch (Exception)
-            {
-
-                return Ok(false);
-            }
-        }
     }
 }
