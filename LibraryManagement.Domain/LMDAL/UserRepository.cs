@@ -76,12 +76,16 @@ namespace LibraryManagement.Domain.LMDAL
             conn.Close();
             return books;
         }
-        public async Task<bool> returnBook(int id)
+        
+        public async Task<bool> returnBook(List<int> id)
         {
             bool result = false;
             cmdBook = new SqlCommand("ProcDeleteBookRecords", conn);
-            cmdBook.Parameters.AddWithValue("@Id", id);
             cmdBook.CommandType = CommandType.StoredProcedure;
+            SqlParameter parameter = new SqlParameter();
+            parameter.ParameterName = "@Ids";
+            parameter.Value = GetIDs(id);
+            cmdBook.Parameters.Add(parameter);
             OpenConnection();
             await Task.Run(() =>
             {
@@ -89,18 +93,28 @@ namespace LibraryManagement.Domain.LMDAL
                 {
                     result = true;
                 }
-
             });
             conn.Close();
             return result;
         }
-        public async Task<bool> lendingBooks(string bookid, int userID)
+        private DataTable GetIDs(List<int> ids)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Id");
+            foreach (var id in ids)
+            {
+                dt.Rows.Add(id);
+            }
+            return dt;
+        }
+
+        public async Task<bool> lendingBooks(List<string> bookid, int userID)
         {
             bool lendBook = false;
             cmdlendBooks = new SqlCommand("ProcAddBookRecords", conn);
-            cmdlendBooks.Parameters.AddWithValue("@UserId", userID);
-            cmdlendBooks.Parameters.AddWithValue("@bookId", bookid);
             cmdlendBooks.CommandType = CommandType.StoredProcedure;
+            cmdlendBooks.Parameters.Add(new SqlParameter("@BookId", GetBookIDs(bookid)));
+            cmdlendBooks.Parameters.Add(new SqlParameter("@UserId",userID));
             await Task.Run(() =>
             {
                 OpenConnection();
@@ -111,6 +125,16 @@ namespace LibraryManagement.Domain.LMDAL
             });
             conn.Close();
             return lendBook;
+        }
+        private DataTable GetBookIDs(List<string> bookIds)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("BookId");
+            foreach (var id in bookIds)
+            {
+                dt.Rows.Add(id);
+            }
+            return dt;
         }
     }
 }

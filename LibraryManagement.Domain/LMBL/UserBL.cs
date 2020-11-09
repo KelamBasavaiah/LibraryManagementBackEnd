@@ -26,11 +26,11 @@ namespace LibraryManagement.Domain.LMBL
         {
             return await userObj.getAllbooksforUser(userId);
         }
-        public async Task<bool> lendingBooks(string bookid, int userID)
+        public async Task<bool> lendingBooks(List<string> bookid, int userID)
         {
             return await userObj.lendingBooks(bookid, userID);
         }
-        public async Task<bool> returnBook(int id)
+        public async Task<bool> returnBook(List<int> id)
         {
             return await userObj.returnBook(id);
         }

@@ -11,8 +11,8 @@ namespace LibraryManagement.Domain.Interfaces
    public interface IUserBl
     {        
         Task<List<User>> getAllbooksforUser(int userId);
-        Task<bool> returnBook(int id);
+        Task<bool> returnBook(List<int> id);
         login getUser(string username,string password);
-        Task<bool> lendingBooks(string bookid, int userID);
+        Task<bool> lendingBooks(List<string> bookid, int userID);
     }
 }
