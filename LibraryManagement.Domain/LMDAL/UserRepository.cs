@@ -12,7 +12,7 @@ namespace LibraryManagement.Domain.LMDAL
     public class userRepository : IUserRepository
     {
         SqlConnection conn;
-        SqlCommand cmduser,cmdBooks,cmdlendBooks,cmdBook,cmdPaswd;
+        SqlCommand cmduser,cmdBooks,cmdlendBooks,cmdBook;
         public userRepository()
         {
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString);
@@ -111,43 +111,6 @@ namespace LibraryManagement.Domain.LMDAL
             });
             conn.Close();
             return lendBook;
-        }
-        public async Task<bool> checkingOldPassword(int userId, string oldPassword)
-        {
-            bool result = false;
-            cmdPaswd = new SqlCommand("CheckingOldPassword", conn);
-            cmdPaswd.Parameters.AddWithValue("@userId", userId);
-            cmdPaswd.Parameters.AddWithValue("@oldPassword", oldPassword);
-            cmdPaswd.CommandType = CommandType.StoredProcedure;
-            await Task.Run(() =>
-            {
-                OpenConnection();
-                SqlDataReader drUser = cmdPaswd.ExecuteReader();
-                while (drUser.Read())
-                {
-                    result = Convert.ToBoolean(drUser[0].ToString());
-                }
-            });
-            conn.Close();
-            return result;
-        }
-        public async Task<bool> updatePassword(int userId, string newPassword)
-        {
-            bool result = false;
-            cmdPaswd = new SqlCommand("UpdatePassword", conn);
-            cmdPaswd.Parameters.AddWithValue("@userId", userId);
-            cmdPaswd.Parameters.AddWithValue("@password", newPassword);
-            cmdPaswd.CommandType = CommandType.StoredProcedure;
-            await Task.Run(() =>
-            {
-                OpenConnection();
-                if (cmdPaswd.ExecuteNonQuery() > 0)
-                {
-                    result = true;
-                }
-            });
-            conn.Close();
-            return result;
         }
     }
 }

@@ -14,6 +14,5 @@ namespace LibraryManagement.Domain.Interfaces
         Task<bool> returnBook(int id);
         login getUser(string username,string password);
         Task<bool> lendingBooks(string bookid, int userID);
-        Task<bool> changePassword(int userId, string oldPassword, string newPassword);
     }
 }

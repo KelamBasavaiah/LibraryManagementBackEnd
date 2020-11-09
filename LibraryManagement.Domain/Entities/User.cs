@@ -19,5 +19,6 @@ namespace LibraryManagement.Domain.Entities
         public string mailId { get; set; }
         public long phoneNo { get; set; }
         public int? isActive { get; set; }
+        public string newPassword { get; set; }
     }
 }
