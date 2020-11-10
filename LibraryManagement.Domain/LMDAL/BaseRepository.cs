@@ -9,31 +9,39 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Domain.LMDAL
 {
-    internal abstract class BaseRepository
+    public abstract  class BaseRepository
     {
-        protected static async Task<T> ExecuteReader<T>(string storedProc,Func<SqlDataReader, Task<T>> mapper,Action<SqlParameterCollection> stroredProcParams = null)
+       internal static async Task<T> ExecuteReader<T>(string storedProc,
+                                                        Func<SqlDataReader,Task<T>> mapper,
+                                                        Action<SqlParameterCollection> stroredProcParams = null)
         {
             return await ProcessCommandAsync(storedProc, stroredProcParams,
                 async command =>
                 {
-                    using (var reader =
-                        await command.ExecuteReaderAsync())
+                    using (var reader = await command.ExecuteReaderAsync())
                     {
                         return await mapper(reader);
                     }
                 });
         }
 
-      
+
+        internal static async Task<int> ExecuteNonQuery(string storedProc,                                                      
+                                                       Action<SqlParameterCollection> stroredProcParams = null)
+        {
+           return  await ProcessCommandAsync(storedProc, stroredProcParams,
+                async command =>  await command.ExecuteNonQueryAsync()) ;
+        }
+
 
         private static async Task<T> ProcessCommandAsync<T>(string storedProc,
-                                                            Action<SqlParameterCollection> stroredProcParams, Func<SqlCommand, Task<T>> processCommand)
+                                                            Action<SqlParameterCollection> stroredProcParams, 
+                                                            Func<SqlCommand,Task<T>> processCommand)
         {
 
 
             using (var connection = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString))
             {
-                //await connection.OpenAsync().ConfigureAwait(false);
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
@@ -44,8 +52,7 @@ namespace LibraryManagement.Domain.LMDAL
                     {
                         stroredProcParams(command.Parameters);
                     }
-                
-
+                    
                     try
                     {
                         return await processCommand(command);
