@@ -22,6 +22,7 @@ namespace LibraryManagement.Domain.LMDAL
                                        p.AddWithValue("@mailid", user.mailId);
                                    });
             if (count > 0)
+
             {
                 return true;
             }
