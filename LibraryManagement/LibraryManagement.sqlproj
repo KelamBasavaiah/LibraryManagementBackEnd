@@ -59,6 +59,7 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Books.sql" />
@@ -80,5 +81,7 @@
     <Build Include="dbo\Stored Procedures\procDeleteUser.sql" />
     <Build Include="dbo\Stored Procedures\UpdatePassword.sql" />
     <Build Include="dbo\Stored Procedures\CheckingOldPassword.sql" />
+    <Build Include="dbo\User Defined Types\StringList.sql" />
+    <Build Include="dbo\User Defined Types\Intlist.sql" />
   </ItemGroup>
 </Project>
