@@ -69,6 +69,7 @@
     <Compile Include="LMDAL\BaseRepository.cs" />
     <Compile Include="LMDAL\BookRepository.cs" />
     <Compile Include="LMDAL\Mappers\BookMapper.cs" />
+    <Compile Include="LMDAL\Mappers\userMgmtMapper.cs" />
     <Compile Include="LMDAL\UserMgmtRepository.cs" />
     <Compile Include="LMDAL\userRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
