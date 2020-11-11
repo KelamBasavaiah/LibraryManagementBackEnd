@@ -1,11 +1,9 @@
-﻿CREATE PROCEDURE ProcDeleteBookRecords(@Id int)
+﻿CREATE PROCEDURE ProcDeleteBookRecords(@Ids Intlist readonly)
 as 
-Declare @BookId nvarchar(50),
-		@Copies int
-		SET @BookId = (select BookId from userBooks where Id = @Id)
 begin
-	Delete from userBooks where Id = @Id
-	SET @Copies = (select Copies from Books where Id = @BookId)
-
-	Update Books set Copies = @Copies + 1 where Id = @BookId
+declare @temp table (BookId nvarchar(50))
+insert into @temp
+select BookId from userBooks where Id in(select value from @Ids)
+Delete from userBooks where Id in(select value from @Ids)
+Update Books set Copies = b.Copies + 1 from Books b join @temp t on b.Id=t.BookId
 end

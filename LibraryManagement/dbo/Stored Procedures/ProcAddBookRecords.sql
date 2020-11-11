@@ -1,9 +1,7 @@
-﻿CREATE PROCEDURE ProcAddBookRecords(@UserId int,@BookId nvarchar(50))
+﻿CREATE PROCEDURE ProcAddBookRecords(@UserId int,@BookId StringList readonly)
 as 
-DECLARE @Copies int
-		SET @Copies = (select Copies from Books where Id = @BookId)
-BEGIN
-	Insert into userBooks values (@UserId,@BookId,SYSDATETIME ( ),DATEADD(day, 15, SYSDATETIME ( )),1)
 
-	Update Books set Copies = @Copies - 1 where Id = @BookId
+BEGIN
+	Insert into userBooks values (@UserId,(select value from @BookId),SYSDATETIME ( ),DATEADD(day, 15, SYSDATETIME ( )),1) 
+	Update Books set Copies = b.Copies - 1 from Books b where b.Id in (select value from @BookId)
 END
