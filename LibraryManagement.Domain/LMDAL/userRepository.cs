@@ -6,96 +6,36 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using LibraryManagement.Domain.LMDAL.Mappers;
 
 namespace LibraryManagement.Domain.LMDAL
 {
-    public class userRepository : IUserRepository
+    public class userRepository : BaseRepository,IUserRepository
     {
-        SqlConnection conn;
-        SqlCommand cmduser,cmdBooks,cmdlendBooks,cmdBook;
-        public userRepository()
+        public async Task<login> getUser(string username)
         {
-            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["conBook"].ConnectionString);
-            OpenConnection();
-        }
-        void OpenConnection()
-        {
-            if (conn.State != ConnectionState.Closed)
-                conn.Close();
-            conn.Open();
-        }
-        public login getUser(string username)
-        {
-            login login = new login();
-            cmduser = new SqlCommand("getUser", conn);
-            cmduser.Parameters.AddWithValue("@username", username);
-            cmduser.CommandType = CommandType.StoredProcedure;
-            OpenConnection();
-            try
-            {
-                SqlDataReader dr = cmduser.ExecuteReader();
-                while (dr.Read())
-                {
-                    login.userId = Convert.ToInt32(dr[0]);
-                    login.password = Convert.ToString(dr[1]);
-                    login.role= Convert.ToString(dr[2]);
-                    login.username = username;
-                }
-
-            }
-            catch (Exception)
-            {
-
-               
-            }
-            conn.Close();
-            return login;
+            return await ExecuteReader("getUser",
+               async reader => await userMapper.Login(reader),
+               p => { p.AddWithValue("@username", username); });
+            
         }
         public async Task<List<User>> getAllbooksforUser(int userId)
         {
-            List<User> books = new List<User>();
-            cmdBooks = new SqlCommand("ProcGetBookRecords", conn);
-            cmdBooks.Parameters.AddWithValue("@UserId", userId);
-            cmdBooks.CommandType = CommandType.StoredProcedure;
-            await Task.Run(() =>
-            {
-                OpenConnection();
-                SqlDataReader drbook = cmdBooks.ExecuteReader();
-                User book = null;
-                while (drbook.Read())
-                {
-                    book = new User();
-                    book.id = Convert.ToInt32(drbook[0].ToString());
-                    book.userId = Convert.ToInt32(drbook[1].ToString());
-                    book.bookId = drbook[2].ToString();
-                    book.dueDate = Convert.ToDateTime(drbook[3].ToString());
-                    book.bookName = drbook[4].ToString();
-                    books.Add(book);
-                }
-            });
-            conn.Close();
-            return books;
+            return await ExecuteReader("ProcGetBookRecords",
+               async reader => await userMapper.MapBook(reader),
+               p => { p.AddWithValue("@UserId", userId); });
         }
         
         public async Task<bool> returnBook(List<int> id)
         {
-            bool result = false;
-            cmdBook = new SqlCommand("ProcDeleteBookRecords", conn);
-            cmdBook.CommandType = CommandType.StoredProcedure;
-            SqlParameter parameter = new SqlParameter();
-            parameter.ParameterName = "@Ids";
-            parameter.Value = GetIDs(id);
-            cmdBook.Parameters.Add(parameter);
-            OpenConnection();
-            await Task.Run(() =>
+            int result=await ExecuteNonQuery("ProcDeleteBookRecords",
+               p=> { p.Add(new SqlParameter("@Ids", GetIDs(id))); });
+            if (result > 0)
             {
-                if (cmdBook.ExecuteNonQuery() > 0)
-                {
-                    result = true;
-                }
-            });
-            conn.Close();
-            return result;
+                return true;
+            }
+            return false;
+
         }
         private DataTable GetIDs(List<int> ids)
         {
@@ -110,21 +50,15 @@ namespace LibraryManagement.Domain.LMDAL
 
         public async Task<bool> lendingBooks(List<string> bookid, int userID)
         {
-            bool lendBook = false;
-            cmdlendBooks = new SqlCommand("ProcAddBookRecords", conn);
-            cmdlendBooks.CommandType = CommandType.StoredProcedure;
-            cmdlendBooks.Parameters.Add(new SqlParameter("@BookId", GetBookIDs(bookid)));
-            cmdlendBooks.Parameters.Add(new SqlParameter("@UserId",userID));
-            await Task.Run(() =>
+            int result = await ExecuteNonQuery("ProcAddBookRecords",
+               p => { p.Add(new SqlParameter("@BookId", GetBookIDs(bookid)));
+                      p.Add(new SqlParameter("@UserId", userID));
+               });
+            if (result > 0)
             {
-                OpenConnection();
-                if (cmdlendBooks.ExecuteNonQuery() > 0)
-                {
-                    lendBook = true;
-                }
-            });
-            conn.Close();
-            return lendBook;
+                return true;
+            }
+            return false;
         }
         private DataTable GetBookIDs(List<string> bookIds)
         {

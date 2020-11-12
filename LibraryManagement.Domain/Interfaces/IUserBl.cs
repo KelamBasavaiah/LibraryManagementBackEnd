@@ -12,7 +12,7 @@ namespace LibraryManagement.Domain.Interfaces
     {        
         Task<List<User>> getAllbooksforUser(int userId);
         Task<bool> returnBook(List<int> id);
-        login getUser(string username,string password);
+        Task<login> getUser(string username,string password);
         Task<bool> lendingBooks(List<string> bookid, int userID);
     }
 }

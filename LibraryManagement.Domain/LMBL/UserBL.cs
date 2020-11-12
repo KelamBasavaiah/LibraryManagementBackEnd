@@ -15,10 +15,10 @@ namespace LibraryManagement.Domain.LMBL
         {
             this.userObj = userObj;
         }
-        public login getUser(string username, string password)
+        public async Task<login> getUser(string username, string password)
         {
             login login = new login();
-            login = userObj.getUser(username);
+            login = await userObj.getUser(username);
             if(login.password== password) { login.aurthorize = true; }
             return login;           
         }
