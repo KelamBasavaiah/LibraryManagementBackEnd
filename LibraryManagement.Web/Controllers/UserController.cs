@@ -38,17 +38,17 @@ namespace LibraryManagement.Web.Controllers
                 
         [HttpPost]
         [Route("login")]
-        public IHttpActionResult login(login log)
+        public async Task<IHttpActionResult> login(login log)
         {
            
             try
             {
-                return Ok(userObj.getUser(log.username, log.password));
+                return Ok(await userObj.getUser(log.username, log.password));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return Ok(new login());
+                return Content(HttpStatusCode.NotFound, ex.Message); 
             }
         }
 
